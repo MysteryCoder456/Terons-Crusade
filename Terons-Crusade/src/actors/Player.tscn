@@ -4,12 +4,12 @@
 [ext_resource path="res://src/scripts/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 19, 34 )
+extents = Vector2( 19, 32 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
-speed = Vector2( 300, 300 )
+speed = Vector2( 300, 650 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
@@ -17,5 +17,4 @@ frames = ExtResource( 1 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 1 )
 shape = SubResource( 1 )
