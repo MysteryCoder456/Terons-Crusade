@@ -6,13 +6,12 @@
 
 [node name="world" type="Node2D"]
 script = ExtResource( 3 )
-gravity = 2000.0
+gravity = 1000.0
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 311.353, 347.361 )
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 178.553, 99.3685 )
 
 [node name="TileMap" type="TileMap" parent="."]
-scale = Vector2( 2, 2 )
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 collision_mask = 6

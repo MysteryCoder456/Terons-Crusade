@@ -3,6 +3,7 @@ extends KinematicBody2D
 var gravity: float
 var velocity: Vector2
 export var speed: Vector2
+export var reach_distance: float
 
 
 func _ready():
