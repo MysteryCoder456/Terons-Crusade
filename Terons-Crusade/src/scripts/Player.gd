@@ -1,14 +1,21 @@
 extends KinematicBody2D
 
-var gravity: float
+onready var gravity = get_tree().get_root().get_node("world").gravity
 var velocity: Vector2
+var inventory_open = false
 export var speed: Vector2
 export var reach_distance: float
 
 
 func _ready():
 	$AnimatedSprite.playing = true
-	gravity = get_tree().get_root().get_node("world").gravity
+	$Inventory.visible = false
+	
+	
+func _input(event):
+	if Input.is_action_just_pressed("open_inventory"):
+		$Inventory.visible = !inventory_open
+		inventory_open = $Inventory.visible
 
 
 func _physics_process(delta):
@@ -19,9 +26,11 @@ func _physics_process(delta):
 	
 func get_movement_velocity():
 	var movement_vector = velocity
-	movement_vector.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * speed.x
+	
+	if !inventory_open:
+		movement_vector.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * speed.x
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !inventory_open:
 		movement_vector.y = -speed.y
 	else:
 		movement_vector.y += gravity * get_physics_process_delta_time()
