@@ -17,7 +17,9 @@ _global_script_class_icons={
 
 config/name="Terons-Crusade"
 run/main_scene="res://src/scenes/world.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/logos/logo.png"
+config/macos_native_icon="res://assets/logos/logo.icns"
+config/windows_native_icon="res://assets/logos/logo.ico"
 
 [display]
 
