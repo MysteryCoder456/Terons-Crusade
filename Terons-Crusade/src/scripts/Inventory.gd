@@ -4,7 +4,7 @@ const Slot = preload("res://src/scripts/Slot.gd")
 var held_item = null
 
 
-func _ready():
+func _ready():	
 	for slot in $MainInventory.get_children():
 		slot.connect("gui_input", self, "slot_gui_input", [slot])
 		

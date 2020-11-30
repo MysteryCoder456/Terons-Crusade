@@ -11,6 +11,10 @@ func _ready():
 	$AnimatedSprite.playing = true
 	$Inventory.visible = false
 	
+	var sword_item = load("res://src/ui/Item.tscn").instance()
+	sword_item.item_texture = load("res://assets/items/sword.png")
+	$Inventory/Hotbar/Slot1.place_item(sword_item)
+	
 	
 func _input(event):
 	if Input.is_action_just_pressed("open_inventory"):
