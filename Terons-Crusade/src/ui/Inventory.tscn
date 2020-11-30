@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/ui/inventory_bg.png" type="Texture" id=1]
 [ext_resource path="res://assets/ui/inventory_slot.png" type="Texture" id=2]
+[ext_resource path="res://src/scripts/Slot.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 2 )
@@ -54,6 +55,7 @@ margin_right = 72.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot2" type="Panel" parent="Main Inventory"]
 margin_left = 82.0
@@ -61,6 +63,7 @@ margin_right = 154.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot3" type="Panel" parent="Main Inventory"]
 margin_left = 164.0
@@ -68,6 +71,7 @@ margin_right = 236.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot4" type="Panel" parent="Main Inventory"]
 margin_left = 246.0
@@ -75,6 +79,7 @@ margin_right = 318.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot5" type="Panel" parent="Main Inventory"]
 margin_left = 328.0
@@ -82,6 +87,7 @@ margin_right = 400.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot6" type="Panel" parent="Main Inventory"]
 margin_left = 410.0
@@ -89,6 +95,7 @@ margin_right = 482.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot7" type="Panel" parent="Main Inventory"]
 margin_left = 492.0
@@ -96,6 +103,7 @@ margin_right = 564.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot8" type="Panel" parent="Main Inventory"]
 margin_left = 574.0
@@ -103,6 +111,7 @@ margin_right = 646.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot9" type="Panel" parent="Main Inventory"]
 margin_left = 656.0
@@ -110,6 +119,7 @@ margin_right = 728.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot10" type="Panel" parent="Main Inventory"]
 margin_left = 738.0
@@ -117,6 +127,7 @@ margin_right = 810.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot11" type="Panel" parent="Main Inventory"]
 margin_left = 820.0
@@ -124,6 +135,7 @@ margin_right = 892.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot12" type="Panel" parent="Main Inventory"]
 margin_top = 82.0
@@ -131,6 +143,7 @@ margin_right = 72.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot13" type="Panel" parent="Main Inventory"]
 margin_left = 82.0
@@ -139,6 +152,7 @@ margin_right = 154.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot14" type="Panel" parent="Main Inventory"]
 margin_left = 164.0
@@ -147,6 +161,7 @@ margin_right = 236.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot15" type="Panel" parent="Main Inventory"]
 margin_left = 246.0
@@ -155,6 +170,7 @@ margin_right = 318.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot16" type="Panel" parent="Main Inventory"]
 margin_left = 328.0
@@ -163,6 +179,7 @@ margin_right = 400.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot17" type="Panel" parent="Main Inventory"]
 margin_left = 410.0
@@ -171,6 +188,7 @@ margin_right = 482.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot18" type="Panel" parent="Main Inventory"]
 margin_left = 492.0
@@ -179,6 +197,7 @@ margin_right = 564.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot19" type="Panel" parent="Main Inventory"]
 margin_left = 574.0
@@ -187,6 +206,7 @@ margin_right = 646.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot20" type="Panel" parent="Main Inventory"]
 margin_left = 656.0
@@ -195,6 +215,7 @@ margin_right = 728.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot21" type="Panel" parent="Main Inventory"]
 margin_left = 738.0
@@ -203,6 +224,7 @@ margin_right = 810.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot22" type="Panel" parent="Main Inventory"]
 margin_left = 820.0
@@ -211,6 +233,7 @@ margin_right = 892.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot23" type="Panel" parent="Main Inventory"]
 margin_top = 164.0
@@ -218,6 +241,7 @@ margin_right = 72.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot24" type="Panel" parent="Main Inventory"]
 margin_left = 82.0
@@ -226,6 +250,7 @@ margin_right = 154.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot25" type="Panel" parent="Main Inventory"]
 margin_left = 164.0
@@ -234,6 +259,7 @@ margin_right = 236.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot26" type="Panel" parent="Main Inventory"]
 margin_left = 246.0
@@ -242,6 +268,7 @@ margin_right = 318.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot27" type="Panel" parent="Main Inventory"]
 margin_left = 328.0
@@ -250,6 +277,7 @@ margin_right = 400.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot28" type="Panel" parent="Main Inventory"]
 margin_left = 410.0
@@ -258,6 +286,7 @@ margin_right = 482.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot29" type="Panel" parent="Main Inventory"]
 margin_left = 492.0
@@ -266,6 +295,7 @@ margin_right = 564.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot30" type="Panel" parent="Main Inventory"]
 margin_left = 574.0
@@ -274,6 +304,7 @@ margin_right = 646.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot31" type="Panel" parent="Main Inventory"]
 margin_left = 656.0
@@ -282,6 +313,7 @@ margin_right = 728.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot32" type="Panel" parent="Main Inventory"]
 margin_left = 738.0
@@ -290,6 +322,7 @@ margin_right = 810.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Slot33" type="Panel" parent="Main Inventory"]
 margin_left = 820.0
@@ -298,6 +331,7 @@ margin_right = 892.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Hotbar" type="GridContainer" parent="."]
 margin_left = 513.0
@@ -317,6 +351,7 @@ margin_right = 72.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot2" type="Panel" parent="Hotbar"]
 margin_left = 82.0
@@ -324,6 +359,7 @@ margin_right = 154.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot3" type="Panel" parent="Hotbar"]
 margin_left = 164.0
@@ -331,6 +367,7 @@ margin_right = 236.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot4" type="Panel" parent="Hotbar"]
 margin_left = 246.0
@@ -338,6 +375,7 @@ margin_right = 318.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot5" type="Panel" parent="Hotbar"]
 margin_left = 328.0
@@ -345,6 +383,7 @@ margin_right = 400.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot6" type="Panel" parent="Hotbar"]
 margin_left = 410.0
@@ -352,6 +391,7 @@ margin_right = 482.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot7" type="Panel" parent="Hotbar"]
 margin_left = 492.0
@@ -359,6 +399,7 @@ margin_right = 564.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot8" type="Panel" parent="Hotbar"]
 margin_left = 574.0
@@ -366,6 +407,7 @@ margin_right = 646.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot9" type="Panel" parent="Hotbar"]
 margin_left = 656.0
@@ -373,6 +415,7 @@ margin_right = 728.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot10" type="Panel" parent="Hotbar"]
 margin_left = 738.0
@@ -380,6 +423,7 @@ margin_right = 810.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Slot11" type="Panel" parent="Hotbar"]
 margin_left = 820.0
@@ -387,3 +431,4 @@ margin_right = 892.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
+script = ExtResource( 3 )
