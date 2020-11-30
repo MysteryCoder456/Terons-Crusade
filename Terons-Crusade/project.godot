@@ -73,5 +73,5 @@ open_inventory={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.152941, 0.682353, 0.768627, 1 )
+environment/default_clear_color=Color( 0.0509804, 0.658824, 0.956863, 1 )
 environment/default_environment="res://default_env.tres"

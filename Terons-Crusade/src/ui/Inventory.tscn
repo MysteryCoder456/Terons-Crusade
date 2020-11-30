@@ -341,14 +341,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -446.0
+margin_left = -365.0
 margin_top = 230.0
-margin_right = 446.0
+margin_right = 365.0
 margin_bottom = 302.0
-rect_min_size = Vector2( 892, 72 )
+rect_min_size = Vector2( 730, 72 )
 custom_constants/vseparation = 10
 custom_constants/hseparation = 10
-columns = 11
+columns = 9
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -419,22 +419,6 @@ script = ExtResource( 3 )
 [node name="Slot9" type="Panel" parent="Hotbar"]
 margin_left = 656.0
 margin_right = 728.0
-margin_bottom = 72.0
-rect_min_size = Vector2( 72, 72 )
-custom_styles/panel = SubResource( 2 )
-script = ExtResource( 3 )
-
-[node name="Slot10" type="Panel" parent="Hotbar"]
-margin_left = 738.0
-margin_right = 810.0
-margin_bottom = 72.0
-rect_min_size = Vector2( 72, 72 )
-custom_styles/panel = SubResource( 2 )
-script = ExtResource( 3 )
-
-[node name="Slot11" type="Panel" parent="Hotbar"]
-margin_left = 820.0
-margin_right = 892.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 72, 72 )
 custom_styles/panel = SubResource( 2 )
