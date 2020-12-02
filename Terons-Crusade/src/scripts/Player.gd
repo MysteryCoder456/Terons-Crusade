@@ -6,14 +6,21 @@ var inventory_open = false
 export var speed: Vector2
 export var reach_distance: float
 
+var item_scene = preload("res://src/ui/Item.tscn")
+
 
 func _ready():
 	$AnimatedSprite.playing = true
 	$Inventory.visible = false
 	
-	var sword_item = load("res://src/ui/Item.tscn").instance()
-	sword_item.item_texture = load("res://assets/items/sword.png")
+	var sword_item = item_scene.instance()
+	sword_item.item_name = "Sword"
+	sword_item.item_quantity = 4
 	$Inventory/Hotbar/Slot1.place_item(sword_item)
+	var sword_item_2 = item_scene.instance()
+	sword_item_2.item_name = "Sword"
+	sword_item_2.item_quantity = 3
+	$Inventory/Hotbar/Slot2.place_item(sword_item_2)
 	
 	
 func _input(event):

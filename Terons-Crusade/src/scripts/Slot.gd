@@ -1,6 +1,5 @@
 extends Panel
 
-const item_scene = preload("res://src/ui/Item.tscn")
 var item = null
 
 

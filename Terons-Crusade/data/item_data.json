@@ -1,0 +1,12 @@
+{
+    "Sword": {
+        "category": "weapon",
+        "stack_size": 5,
+        "damage": 5
+    },
+    "Dirt Block": {
+        "category": "block",
+        "stack_size": 64,
+        "block_id": 2
+    }
+}

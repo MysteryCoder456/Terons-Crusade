@@ -21,6 +21,10 @@ config/icon="res://assets/logos/logo.png"
 config/macos_native_icon="res://assets/logos/logo.icns"
 config/windows_native_icon="res://assets/logos/logo.ico"
 
+[autoload]
+
+JsonData="*res://src/scripts/JSONData.gd"
+
 [display]
 
 window/size/width=1920
