@@ -1,7 +1,6 @@
 extends Node2D
 
 onready var player = get_node("Player")
-export var gravity: float
 const DIRECTIONS = [Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT, Vector2.UP]
 
 

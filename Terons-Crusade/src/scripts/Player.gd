@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-onready var gravity = get_tree().get_root().get_node("world").gravity
 var velocity: Vector2
 var inventory_open = false
 export var speed: Vector2
@@ -44,7 +43,7 @@ func get_movement_velocity():
 	if Input.is_action_just_pressed("jump") and is_on_floor() and !inventory_open:
 		movement_vector.y = -speed.y
 	else:
-		movement_vector.y += gravity * get_physics_process_delta_time()
+		movement_vector.y += Globals.gravity * get_physics_process_delta_time()
 	
 	return movement_vector
 	

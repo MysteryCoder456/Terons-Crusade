@@ -24,6 +24,7 @@ config/windows_native_icon="res://assets/logos/logo.ico"
 [autoload]
 
 JsonData="*res://src/scripts/JSONData.gd"
+Globals="*res://src/scripts/Globals.gd"
 
 [display]
 
@@ -74,8 +75,10 @@ open_inventory={
 2d_physics/layer_1="environment"
 2d_physics/layer_2="entities"
 2d_physics/layer_3="player"
+2d_physics/layer_4="collectibles"
 
 [rendering]
 
+quality/driver/fallback_to_gles2=true
 environment/default_clear_color=Color( 0.0509804, 0.658824, 0.956863, 1 )
 environment/default_environment="res://default_env.tres"
