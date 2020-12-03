@@ -1,14 +1,18 @@
 extends Node2D
 
 var item_name
-var item_quantity = 1
-var stack_size = 64
+var item_quantity
+var stack_size
+
+func init(name, quantity):
+	item_name = name
+	item_quantity = quantity
+	stack_size = int(JsonData.item_data[item_name]["stack_size"])
 
 
 func _ready():
 	$TextureRect.texture = load("res://assets/items/" + item_name + "/" + item_name + ".png")
 	$Label.text = String(item_quantity)
-	stack_size = int(JsonData.item_data[item_name]["stack_size"])
 	
 	if stack_size == 1:
 		$Label.visible = false
