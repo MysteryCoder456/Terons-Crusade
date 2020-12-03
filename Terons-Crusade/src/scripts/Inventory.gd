@@ -91,7 +91,6 @@ func add_item(item: Item) -> bool:
 	if not slot_found:
 		for slot in $Hotbar.get_children():
 			if not slot.item:
-				item.position = Vector2(7.2, 7.2)
 				slot.place_item(item)
 				free_slot = slot
 				slot_found = true
