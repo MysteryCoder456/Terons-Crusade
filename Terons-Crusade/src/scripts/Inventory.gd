@@ -3,14 +3,17 @@ extends Node2D
 const Slot = preload("res://src/scripts/Slot.gd")
 const Item = preload("res://src/scripts/Item.gd")
 var held_item = null
+onready var player = find_parent("Player")
 
 
-func _ready():	
+func _ready():
 	for slot in $MainInventory.get_children():
 		slot.connect("gui_input", self, "slot_gui_input", [slot, false])
 		
 	for slot in $Hotbar.get_children():
 		slot.connect("gui_input", self, "slot_gui_input", [slot, true])
+		
+#	player.sync_inventory_and_hotbar()
 
 func slot_gui_input(event: InputEvent, slot: Slot, in_hotbar):
 	if event is InputEventMouseButton:
@@ -58,6 +61,9 @@ func slot_gui_input(event: InputEvent, slot: Slot, in_hotbar):
 				else:
 					Globals.player_inventory[slot_id - 1] = item_info
 				print(Globals.player_hotbar)
+				
+			if in_hotbar:
+				player.sync_inventory_and_hotbar()
 				
 
 func add_item(item: Item) -> bool:
@@ -111,6 +117,7 @@ func add_item(item: Item) -> bool:
 		var item_info = [free_slot.item.item_name, free_slot.item.item_quantity]
 		if slot_found_in_hotbar:
 			Globals.player_hotbar[slot_id - 1] = item_info
+			player.sync_inventory_and_hotbar()
 		else:
 			Globals.player_inventory[slot_id - 1] = item_info
 		print(Globals.player_hotbar)

@@ -14,12 +14,14 @@ func _ready():
 	$Inventory.visible = false
 	
 	refresh_inventory()
+	sync_inventory_and_hotbar()
 	
 	
 func _input(event):
 	if Input.is_action_just_pressed("open_inventory"):
 		$Inventory.visible = !inventory_open
 		inventory_open = $Inventory.visible
+		$HotbarUI.visible = !$Inventory.visible
 	
 	if Input.is_action_just_pressed("pickup_item"):
 		if len(itemdrops_in_reach) > 0:
@@ -47,6 +49,16 @@ func refresh_inventory():
 			var item_object = item_scene.instance()
 			item_object.init(item_info[0], item_info[1])
 			get_node("Inventory/MainInventory/Slot" + String(inv_id + 1)).place_item(item_object)
+			
+			
+func sync_inventory_and_hotbar():
+	# Clear Hotbar UI
+	for child in $HotbarUI/HotbarGrid.get_children():
+		$HotbarUI/HotbarGrid.remove_child(child)
+		child.queue_free()
+		
+	for slot in $Inventory/Hotbar.get_children():
+		$HotbarUI/HotbarGrid.add_child(slot)
 	
 	
 func get_movement_velocity():
