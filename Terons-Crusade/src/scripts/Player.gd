@@ -3,6 +3,7 @@ extends KinematicBody2D
 var velocity: Vector2
 var inventory_open = false
 var itemdrops_in_reach = []
+var current_hotbar_selection = 0
 export var speed: Vector2
 export var reach_distance: float
 
@@ -17,14 +18,41 @@ func _ready():
 	
 	
 func _input(event):
+	# Open Inventory
 	if Input.is_action_just_pressed("open_inventory"):
 		$Inventory.visible = !inventory_open
 		inventory_open = $Inventory.visible
 	
+	# Pickup Item Drops
 	if Input.is_action_just_pressed("pickup_item"):
 		if len(itemdrops_in_reach) > 0:
 			for itemdrop in itemdrops_in_reach:
 				itemdrop.pick_up(self)
+				
+	# Hotbar Item Selection
+	if Input.is_action_just_pressed("hotbar_up"):
+		current_hotbar_selection -= 1
+	elif Input.is_action_just_pressed("hotbar_down"):
+		current_hotbar_selection += 1
+	
+	if Input.is_key_pressed(KEY_1):
+		current_hotbar_selection = 0
+	elif Input.is_key_pressed(KEY_2):
+		current_hotbar_selection = 1
+	elif Input.is_key_pressed(KEY_3):
+		current_hotbar_selection = 2
+	elif Input.is_key_pressed(KEY_4):
+		current_hotbar_selection = 3
+	elif Input.is_key_pressed(KEY_5):
+		current_hotbar_selection = 4
+	elif Input.is_key_pressed(KEY_6):
+		current_hotbar_selection = 5
+	elif Input.is_key_pressed(KEY_7):
+		current_hotbar_selection = 6
+	elif Input.is_key_pressed(KEY_8):
+		current_hotbar_selection = 7
+	elif Input.is_key_pressed(KEY_9):
+		current_hotbar_selection = 8
 
 
 func _physics_process(delta):
