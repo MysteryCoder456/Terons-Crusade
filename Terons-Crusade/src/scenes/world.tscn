@@ -22,6 +22,7 @@ tile_data = PoolIntArray( 851975, 0, 0, 851976, 0, 1, 851977, 0, 1, 851978, 0, 1
 
 [node name="ItemDrop2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 27.2195, 7.87932 )
+item_name = "Pickaxe"
 
 [node name="ItemDrop3" parent="." instance=ExtResource( 4 )]
 position = Vector2( -27.5776, 5.37225 )
