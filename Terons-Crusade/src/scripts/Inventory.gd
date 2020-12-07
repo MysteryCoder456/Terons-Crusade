@@ -57,7 +57,6 @@ func slot_gui_input(event: InputEvent, slot: Slot, in_hotbar):
 					Globals.player_hotbar[slot_id - 1] = item_info
 				else:
 					Globals.player_inventory[slot_id - 1] = item_info
-				print(Globals.player_hotbar)
 				
 
 func add_item(item: Item) -> bool:
@@ -113,7 +112,6 @@ func add_item(item: Item) -> bool:
 			Globals.player_hotbar[slot_id - 1] = item_info
 		else:
 			Globals.player_inventory[slot_id - 1] = item_info
-		print(Globals.player_hotbar)
 	
 	return slot_found
 

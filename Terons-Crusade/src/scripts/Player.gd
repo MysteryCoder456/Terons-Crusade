@@ -35,6 +35,11 @@ func _input(event):
 	elif Input.is_action_just_pressed("hotbar_down"):
 		current_hotbar_selection += 1
 	
+	if current_hotbar_selection > 8:
+		current_hotbar_selection = 0
+	elif current_hotbar_selection < 0:
+		current_hotbar_selection = 8
+	
 	if Input.is_key_pressed(KEY_1):
 		current_hotbar_selection = 0
 	elif Input.is_key_pressed(KEY_2):
