@@ -4,6 +4,7 @@ var velocity: Vector2
 var inventory_open = false
 var itemdrops_in_reach = []
 var current_hotbar_selection = 0
+var previous_hotbar_selection = 0
 export var speed: Vector2
 export var reach_distance: float
 
@@ -30,6 +31,8 @@ func _input(event):
 			for itemdrop in itemdrops_in_reach:
 				itemdrop.pick_up(self)
 				
+	previous_hotbar_selection = current_hotbar_selection
+	
 	# Hotbar Item Selection
 	if Input.is_action_just_pressed("hotbar_up"):
 		current_hotbar_selection -= 1
@@ -59,6 +62,10 @@ func _input(event):
 		current_hotbar_selection = 7
 	elif Input.is_key_pressed(KEY_9):
 		current_hotbar_selection = 8
+		
+	if current_hotbar_selection != previous_hotbar_selection:
+		get_node("HotbarOverlay/Hotbar/Slot" + String(current_hotbar_selection + 1)).select()
+		get_node("HotbarOverlay/Hotbar/Slot" + String(previous_hotbar_selection + 1)).deselect()
 
 
 func _physics_process(delta):
