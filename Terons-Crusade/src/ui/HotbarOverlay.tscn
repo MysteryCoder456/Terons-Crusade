@@ -1,0 +1,126 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/ui/inventory_bg.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/inventory_slot.png" type="Texture" id=2]
+[ext_resource path="res://src/scripts/Slot.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 72, 72 )
+
+[node name="HotbarOverlay" type="Node2D"]
+scale = Vector2( 0.3, 0.3 )
+z_index = 1
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -335.0
+margin_top = -45.0
+margin_right = 335.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 670, 90 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hotbar" type="GridContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -324.0
+margin_top = -36.0
+margin_right = 324.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 648, 72 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 9
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slot1" type="Panel" parent="Hotbar"]
+margin_right = 72.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot2" type="Panel" parent="Hotbar"]
+margin_left = 72.0
+margin_right = 144.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot3" type="Panel" parent="Hotbar"]
+margin_left = 144.0
+margin_right = 216.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot4" type="Panel" parent="Hotbar"]
+margin_left = 216.0
+margin_right = 288.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot5" type="Panel" parent="Hotbar"]
+margin_left = 288.0
+margin_right = 360.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot6" type="Panel" parent="Hotbar"]
+margin_left = 360.0
+margin_right = 432.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot7" type="Panel" parent="Hotbar"]
+margin_left = 432.0
+margin_right = 504.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot8" type="Panel" parent="Hotbar"]
+margin_left = 504.0
+margin_right = 576.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true
+
+[node name="Slot9" type="Panel" parent="Hotbar"]
+margin_left = 576.0
+margin_right = 648.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+is_overlay = true

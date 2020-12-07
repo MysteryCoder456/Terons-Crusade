@@ -2,6 +2,7 @@ extends Node2D
 
 const Slot = preload("res://src/scripts/Slot.gd")
 const Item = preload("res://src/scripts/Item.gd")
+onready var player = find_parent("Player")
 var held_item = null
 
 
@@ -57,6 +58,9 @@ func slot_gui_input(event: InputEvent, slot: Slot, in_hotbar):
 					Globals.player_hotbar[slot_id - 1] = item_info
 				else:
 					Globals.player_inventory[slot_id - 1] = item_info
+					
+			if in_hotbar:
+				player.sync_hotbar_overlay()
 				
 
 func add_item(item: Item) -> bool:
@@ -112,6 +116,9 @@ func add_item(item: Item) -> bool:
 			Globals.player_hotbar[slot_id - 1] = item_info
 		else:
 			Globals.player_inventory[slot_id - 1] = item_info
+			
+	if slot_found_in_hotbar:
+		player.sync_hotbar_overlay()
 	
 	return slot_found
 

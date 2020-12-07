@@ -7,7 +7,7 @@ var current_hotbar_selection = 0
 export var speed: Vector2
 export var reach_distance: float
 
-var item_scene = preload("res://src/ui/Item.tscn")
+const item_scene = preload("res://src/ui/Item.tscn")
 
 
 func _ready():
@@ -21,6 +21,7 @@ func _input(event):
 	# Open Inventory
 	if Input.is_action_just_pressed("open_inventory"):
 		$Inventory.visible = !inventory_open
+		$HotbarOverlay.visible = inventory_open
 		inventory_open = $Inventory.visible
 	
 	# Pickup Item Drops
@@ -64,6 +65,18 @@ func _physics_process(delta):
 	animate_character()
 	velocity = get_movement_velocity()
 	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	
+func sync_hotbar_overlay():
+	for i in range(len(Globals.player_hotbar)):
+		var item_info = Globals.player_hotbar[i]
+		var slot = get_node("HotbarOverlay/Hotbar/Slot" + String(i + 1))
+		slot.pick_item()
+		
+		if item_info:
+			var new_item = item_scene.instance()
+			new_item.init(item_info[0], item_info[1])
+			slot.place_item(new_item)
 	
 	
 func refresh_inventory():
