@@ -14,7 +14,10 @@ func init(name, quantity):
 
 
 func _ready():
-	$Sprite.texture = load("res://assets/items/" + item_name + "/" + item_name + ".png")
+	var texture = load("res://assets/items/" + item_name + "/" + item_name + ".png")
+	$Sprite.texture = texture
+	$Sprite.scale.x = 72 / texture.get_width()
+	$Sprite.scale.y = 72 / texture.get_height()
 
 
 func _physics_process(delta):

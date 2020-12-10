@@ -21,9 +21,15 @@ tile_data = PoolIntArray( 851975, 0, 0, 851976, 0, 1, 851977, 0, 1, 851978, 0, 1
 [node name="ItemDrop" parent="." instance=ExtResource( 4 )]
 
 [node name="ItemDrop2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 27.2195, 7.87932 )
+position = Vector2( 27.2195, 0.0541325 )
 item_name = "Pickaxe"
 
 [node name="ItemDrop3" parent="." instance=ExtResource( 4 )]
-position = Vector2( -27.5776, 5.37225 )
+position = Vector2( -27.5776, 4.76837e-07 )
 speed = 4000.0
+item_name = "Grass Block"
+
+[node name="ItemDrop4" parent="." instance=ExtResource( 4 )]
+position = Vector2( -55.2848, 4.76837e-07 )
+speed = 4000.0
+item_name = "Dirt Block"

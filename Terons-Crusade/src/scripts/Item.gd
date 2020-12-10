@@ -11,7 +11,10 @@ func init(name, quantity):
 
 
 func _ready():
-	$TextureRect.texture = load("res://assets/items/" + item_name + "/" + item_name + ".png")
+	var texture = load("res://assets/items/" + item_name + "/" + item_name + ".png")
+	$TextureRect.texture = texture
+	$TextureRect.rect_scale.x = 72 / texture.get_width()
+	$TextureRect.rect_scale.y = 72 / texture.get_height()
 	$Label.text = String(item_quantity)
 	
 	if stack_size == 1:

@@ -10,8 +10,9 @@ z_index = 2
 script = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 72.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
 mouse_filter = 2
 texture = ExtResource( 1 )
 __meta__ = {

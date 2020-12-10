@@ -13,5 +13,10 @@
         "category": "block",
         "stack_size": 64,
         "block_id": 2
+    },
+    "Grass Block": {
+        "category": "block",
+        "stack_size": 64,
+        "block_id": 1
     }
 }
