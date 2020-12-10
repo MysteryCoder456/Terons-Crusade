@@ -1,10 +1,14 @@
 extends KinematicBody2D
 
-var velocity: Vector2
+export var hotbar_disappear_time = 2 # in seconds
+
 var inventory_open = false
 var itemdrops_in_reach = []
 var current_hotbar_selection = 0
 var previous_hotbar_selection = 0
+var hotbar_timer = hotbar_disappear_time
+
+var velocity: Vector2
 export var speed: Vector2
 export var reach_distance: float
 
@@ -66,9 +70,18 @@ func _input(event):
 	if current_hotbar_selection != previous_hotbar_selection:
 		get_node("HotbarOverlay/Hotbar/Slot" + String(current_hotbar_selection + 1)).select()
 		get_node("HotbarOverlay/Hotbar/Slot" + String(previous_hotbar_selection + 1)).deselect()
+		hotbar_timer = 0
 
 
 func _physics_process(delta):
+	if hotbar_timer < hotbar_disappear_time:
+		hotbar_timer += delta
+		if not $HotbarOverlay.visible:
+			$HotbarOverlay.visible = true
+	else:
+		if $HotbarOverlay.visible:
+			$HotbarOverlay.visible = false
+	
 	animate_character()
 	velocity = get_movement_velocity()
 	velocity = move_and_slide(velocity, Vector2.UP)

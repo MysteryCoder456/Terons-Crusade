@@ -33,7 +33,7 @@ zoom = Vector2( 0.4, 0.4 )
 visible = false
 
 [node name="HotbarOverlay" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 200 )
+position = Vector2( 0, -40 )
 
 [node name="ItemPickupDetector" type="Area2D" parent="."]
 collision_layer = 4
