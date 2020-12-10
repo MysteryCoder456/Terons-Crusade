@@ -12,8 +12,6 @@ var velocity: Vector2
 export var speed: Vector2
 export var reach_distance: float
 
-const item_scene = preload("res://src/ui/Item.tscn")
-
 
 func _ready():
 	$AnimatedSprite.playing = true
@@ -26,7 +24,7 @@ func _input(event):
 	# Open Inventory
 	if Input.is_action_just_pressed("open_inventory"):
 		$Inventory.visible = !inventory_open
-		$HotbarOverlay.visible = inventory_open
+		hotbar_timer = hotbar_disappear_time
 		inventory_open = $Inventory.visible
 	
 	# Pickup Item Drops
@@ -71,6 +69,20 @@ func _input(event):
 		get_node("HotbarOverlay/Hotbar/Slot" + String(current_hotbar_selection + 1)).select()
 		get_node("HotbarOverlay/Hotbar/Slot" + String(previous_hotbar_selection + 1)).deselect()
 		hotbar_timer = 0
+		
+	# Dropping items from hotbar
+	if Input.is_action_just_pressed("drop_item"):
+		var item_info = Globals.player_hotbar[current_hotbar_selection]
+		if item_info:
+			var item_drop = Globals.ItemDrop.instance()
+			
+			item_drop.init(item_info[0], item_info[1])
+			item_drop.global_position = self.global_position
+			find_parent("world").add_child(item_drop)
+			
+			Globals.player_hotbar[current_hotbar_selection] = null
+			sync_hotbar_overlay()
+			refresh_inventory(true)
 
 
 func _physics_process(delta):
@@ -91,28 +103,44 @@ func sync_hotbar_overlay():
 	for i in range(len(Globals.player_hotbar)):
 		var item_info = Globals.player_hotbar[i]
 		var slot = get_node("HotbarOverlay/Hotbar/Slot" + String(i + 1))
+		
+		if slot.item:
+			slot.item.queue_free()
 		slot.pick_item()
 		
 		if item_info:
-			var new_item = item_scene.instance()
+			var new_item = Globals.Item.instance()
 			new_item.init(item_info[0], item_info[1])
 			slot.place_item(new_item)
 	
 	
-func refresh_inventory():
+func refresh_inventory(only_hotbar = false):
 	for hotbar_id in Globals.player_hotbar.keys():
 		var item_info = Globals.player_hotbar[hotbar_id]
+		var slot = get_node("Inventory/Hotbar/Slot" + String(hotbar_id + 1))
+		
+		if slot.item:
+			slot.item.queue_free()
+		slot.pick_item()
+		
 		if item_info:
-			var item_object = item_scene.instance()
+			var item_object = Globals.Item.instance()
 			item_object.init(item_info[0], item_info[1])
-			get_node("Inventory/Hotbar/Slot" + String(hotbar_id + 1)).place_item(item_object)
+			slot.place_item(item_object)
+	
+	if not only_hotbar:
+		for inv_id in Globals.player_hotbar.keys():
+			var item_info = Globals.player_inventory[inv_id]
+			var slot = get_node("Inventory/MainInventory/Slot" + String(inv_id + 1))
+		
+			if slot.item:
+				slot.item.queue_free()
+			slot.pick_item()
 			
-	for inv_id in Globals.player_hotbar.keys():
-		var item_info = Globals.player_inventory[inv_id]
-		if item_info:
-			var item_object = item_scene.instance()
-			item_object.init(item_info[0], item_info[1])
-			get_node("Inventory/MainInventory/Slot" + String(inv_id + 1)).place_item(item_object)
+			if item_info:
+				var item_object = Globals.Item.instance()
+				item_object.init(item_info[0], item_info[1])
+				slot.place_item(item_object)
 	
 	
 func get_movement_velocity():

@@ -1,14 +1,16 @@
 extends KinematicBody2D
 
-const Player = preload("res://src/scripts/Player.gd")
-const Item = preload("res://src/ui/Item.tscn")
-
 export var speed: float = 4000
 export var item_name = "Sword"
 export var item_quantity = 1
 var velocity: Vector2
 var is_picked_up = false
-var player: Player
+var player
+
+
+func init(name, quantity):
+	item_name = name
+	item_quantity = quantity
 
 
 func _ready():
@@ -21,7 +23,7 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(direction * speed, Globals.gravity * delta)
 		
 		if global_position.distance_to(player.global_position) < 7:
-			var item = Item.instance()
+			var item = Globals.Item.instance()
 			item.init(self.item_name, self.item_quantity)
 			var pickup_success = player.get_node("Inventory").add_item(item)
 			
