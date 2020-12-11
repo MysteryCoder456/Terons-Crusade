@@ -15,7 +15,7 @@ func _input(event):
 			if item_info["category"] == "block":
 				if Input.is_action_just_pressed("use"):
 					var block_id = item_info["block_id"]
-			
+					
 					if mouse_pos.distance_to(player.global_position) <= player.reach_distance:
 						var block_position = $TileMap.world_to_map(mouse_pos)
 						
@@ -41,7 +41,8 @@ func _input(event):
 						var tool_type_required = JsonData.item_data[$TileMap.tile_set.tile_get_name(cell_id)]["tool_type_required"]
 						
 						if tool_type_required == item_info["tool_type"]:
-							$TileMap.set_cellv(block_position, $TileMap.INVALID_CELL)
+							if mouse_pos.distance_to(player.global_position) <= player.reach_distance:
+								$TileMap.set_cellv(block_position, $TileMap.INVALID_CELL)
 			
 			
 func is_block_nearby(block_pos) -> bool:
