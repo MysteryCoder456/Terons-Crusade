@@ -9,6 +9,11 @@
         "stack_size": 1,
         "tool_type": "pickaxe"
     },
+    "Shovel": {
+        "category": "tool",
+        "stack_size": 1,
+        "tool_type": "shovel"
+    },
     "Dirt Block": {
         "category": "block",
         "stack_size": 64,

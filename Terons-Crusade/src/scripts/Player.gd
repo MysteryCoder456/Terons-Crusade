@@ -35,40 +35,41 @@ func _input(event):
 				
 	previous_hotbar_selection = current_hotbar_selection
 	
-	# Hotbar Item Selection
-	if Input.is_action_just_pressed("hotbar_up"):
-		current_hotbar_selection -= 1
-	elif Input.is_action_just_pressed("hotbar_down"):
-		current_hotbar_selection += 1
-	
-	if current_hotbar_selection > 8:
-		current_hotbar_selection = 0
-	elif current_hotbar_selection < 0:
-		current_hotbar_selection = 8
-	
-	if Input.is_key_pressed(KEY_1):
-		current_hotbar_selection = 0
-	elif Input.is_key_pressed(KEY_2):
-		current_hotbar_selection = 1
-	elif Input.is_key_pressed(KEY_3):
-		current_hotbar_selection = 2
-	elif Input.is_key_pressed(KEY_4):
-		current_hotbar_selection = 3
-	elif Input.is_key_pressed(KEY_5):
-		current_hotbar_selection = 4
-	elif Input.is_key_pressed(KEY_6):
-		current_hotbar_selection = 5
-	elif Input.is_key_pressed(KEY_7):
-		current_hotbar_selection = 6
-	elif Input.is_key_pressed(KEY_8):
-		current_hotbar_selection = 7
-	elif Input.is_key_pressed(KEY_9):
-		current_hotbar_selection = 8
+	if not inventory_open:
+		# Hotbar Item Selection
+		if Input.is_action_just_pressed("hotbar_up"):
+			current_hotbar_selection -= 1
+		elif Input.is_action_just_pressed("hotbar_down"):
+			current_hotbar_selection += 1
 		
-	if current_hotbar_selection != previous_hotbar_selection:
-		get_node("HotbarOverlay/Hotbar/Slot" + String(current_hotbar_selection + 1)).select()
-		get_node("HotbarOverlay/Hotbar/Slot" + String(previous_hotbar_selection + 1)).deselect()
-		hotbar_timer = 0
+		if current_hotbar_selection > 8:
+			current_hotbar_selection = 0
+		elif current_hotbar_selection < 0:
+			current_hotbar_selection = 8
+		
+		if Input.is_key_pressed(KEY_1):
+			current_hotbar_selection = 0
+		elif Input.is_key_pressed(KEY_2):
+			current_hotbar_selection = 1
+		elif Input.is_key_pressed(KEY_3):
+			current_hotbar_selection = 2
+		elif Input.is_key_pressed(KEY_4):
+			current_hotbar_selection = 3
+		elif Input.is_key_pressed(KEY_5):
+			current_hotbar_selection = 4
+		elif Input.is_key_pressed(KEY_6):
+			current_hotbar_selection = 5
+		elif Input.is_key_pressed(KEY_7):
+			current_hotbar_selection = 6
+		elif Input.is_key_pressed(KEY_8):
+			current_hotbar_selection = 7
+		elif Input.is_key_pressed(KEY_9):
+			current_hotbar_selection = 8
+			
+		if current_hotbar_selection != previous_hotbar_selection:
+			get_node("HotbarOverlay/Hotbar/Slot" + String(current_hotbar_selection + 1)).select()
+			get_node("HotbarOverlay/Hotbar/Slot" + String(previous_hotbar_selection + 1)).deselect()
+			hotbar_timer = 0
 		
 	# Dropping items from hotbar
 	if Input.is_action_just_pressed("drop_item"):

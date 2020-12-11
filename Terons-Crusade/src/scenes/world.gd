@@ -23,6 +23,15 @@ func _input(event):
 							if is_block_nearby(block_position):
 								$TileMap.set_cellv(block_position, block_id)
 								
+								# Remove item from inventory
+								if Globals.player_hotbar[player.current_hotbar_selection][1] > 1:
+									Globals.player_hotbar[player.current_hotbar_selection][1] -= 1
+								else:
+									Globals.player_hotbar[player.current_hotbar_selection] = null
+									
+								player.refresh_inventory(true)
+								player.sync_hotbar_overlay()
+								
 			elif item_info["category"] == "tool":
 				if Input.is_action_just_pressed("break"):
 					var block_position = $TileMap.world_to_map(mouse_pos)

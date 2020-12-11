@@ -28,8 +28,15 @@ item_name = "Pickaxe"
 position = Vector2( -27.5776, 4.76837e-07 )
 speed = 4000.0
 item_name = "Grass Block"
+item_quantity = 5
 
 [node name="ItemDrop4" parent="." instance=ExtResource( 4 )]
 position = Vector2( -55.2848, 4.76837e-07 )
 speed = 4000.0
 item_name = "Dirt Block"
+item_quantity = 60
+
+[node name="ItemDrop5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 52.4268, 0.0541325 )
+speed = 4000.0
+item_name = "Shovel"

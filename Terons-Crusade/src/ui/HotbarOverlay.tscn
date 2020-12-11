@@ -9,7 +9,7 @@ texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 72, 72 )
 
 [node name="HotbarOverlay" type="Node2D"]
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.4, 0.4 )
 z_index = 1
 
 [node name="Background" type="TextureRect" parent="."]
