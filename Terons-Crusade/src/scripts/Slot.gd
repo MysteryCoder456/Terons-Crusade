@@ -8,10 +8,10 @@ onready var deselected_style: StyleBoxTexture
 
 func _ready():
 	selected_style = StyleBoxTexture.new()
-	selected_style.texture = load("res://assets/ui/inventory_slot_selected.png")
+	selected_style.texture = load("res://assets/ui/inventory_slots/inventory_slot_selected.png")
 	
 	deselected_style = StyleBoxTexture.new()
-	deselected_style.texture = load("res://assets/ui/inventory_slot.png")
+	deselected_style.texture = load("res://assets/ui/inventory_slots/inventory_slot.png")
 
 
 func pick_item():
