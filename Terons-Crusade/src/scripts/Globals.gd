@@ -6,6 +6,9 @@ var Player = load("res://src/scripts/Player.gd")
 const Item = preload("res://src/ui/Item.tscn")
 const ItemDrop = preload("res://src/actors/ItemDrop.tscn")
 
+var player_health = 8
+var max_player_health = 10
+
 var player_hotbar = {
 	0: null,
 	1: null,

@@ -3,8 +3,8 @@ extends Panel
 var item = null
 export var is_overlay: bool
 
-onready var selected_style: StyleBoxTexture
-onready var deselected_style: StyleBoxTexture
+var selected_style: StyleBoxTexture
+var deselected_style: StyleBoxTexture
 
 func _ready():
 	selected_style = StyleBoxTexture.new()

@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var velocity: Vector2
+export var speed: Vector2
+export var reach_distance: float
 export var hotbar_disappear_time = 2 # in seconds
 
 var inventory_open = false
@@ -7,10 +10,6 @@ var itemdrops_in_reach = []
 var current_hotbar_selection = 0
 var previous_hotbar_selection = 0
 var hotbar_timer = hotbar_disappear_time
-
-var velocity: Vector2
-export var speed: Vector2
-export var reach_distance: float
 
 
 func _ready():
