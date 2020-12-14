@@ -1,7 +1,5 @@
-extends KinematicBody2D
+extends Entity
 
-var velocity: Vector2
-export var speed: Vector2
 export var reach_distance: float # in pixels
 export var hotbar_disappear_time = 2 # in seconds
 
@@ -11,25 +9,14 @@ var current_hotbar_selection = 0
 var previous_hotbar_selection = 0
 var hotbar_timer = hotbar_disappear_time
 
-var health = 10
-export var max_health: int
 
-var minimum_fall_damage_velocity: float
-
-
-func _ready():
-	var minimum_fall_damage_blocks = 5  # 80 pixels
-	minimum_fall_damage_velocity = sqrt(2 * Globals.gravity * (minimum_fall_damage_blocks * 16))
-	
+func _ready():	
 	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
 	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
 	var health_bar_adjust = Vector2(5, -5)
 	var health_bar_pos = -camera_size / 2 + health_bar_size / 2 + health_bar_adjust
 	
 	$HealthBarOverlay.position = health_bar_pos
-	
-	$AnimatedSprite.playing = true
-	$Inventory.visible = false
 	
 	refresh_inventory()
 	
@@ -100,7 +87,7 @@ func _input(event):
 			refresh_inventory(true)
 
 
-func _physics_process(delta):	
+func _process(delta):	
 	if hotbar_timer < hotbar_disappear_time:
 		hotbar_timer += delta
 		if not $HotbarOverlay.visible:
@@ -108,10 +95,6 @@ func _physics_process(delta):
 	else:
 		if $HotbarOverlay.visible:
 			$HotbarOverlay.visible = false
-	
-	animate_character()
-	velocity = get_movement_velocity()
-	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	
 func sync_hotbar_overlay():
@@ -170,23 +153,6 @@ func get_movement_velocity():
 		movement_vector.y += Globals.gravity * get_physics_process_delta_time()
 	
 	return movement_vector
-	
-	
-func animate_character():	
-	if velocity != Vector2.ZERO:
-		if velocity.x > 0:
-			$AnimatedSprite.play("running")
-			$AnimatedSprite.flip_h = false
-		elif velocity.x < 0:
-			$AnimatedSprite.play("running")
-			$AnimatedSprite.flip_h = true
-			
-		if velocity.y > 0:
-			$AnimatedSprite.play("falling")
-		elif velocity.y < 0:
-			$AnimatedSprite.play("jumping")
-	else:
-		$AnimatedSprite.play("idle")
 
 
 func _on_ItemPickupDetector_body_entered(body):
@@ -201,6 +167,6 @@ func _on_ItemPickupDetector_body_exited(body):
 
 func _on_FallDamageDetector_body_entered(body):
 	if body.is_in_group("ground"):
-		if velocity.y >= minimum_fall_damage_velocity:
-			var fall_damage = int(velocity.y / 100 - minimum_fall_damage_velocity / 100)
+		if velocity.y >= Globals.minimum_fall_damage_velocity:
+			var fall_damage = int(velocity.y / 100 - Globals.minimum_fall_damage_velocity / 100)
 			health -= fall_damage
