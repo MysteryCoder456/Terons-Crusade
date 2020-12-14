@@ -1,8 +1,9 @@
 extends Node2D
 
-var previous_frame_health = Globals.player_health
+var previous_frame_health: int
 var normal_style: StyleBoxTexture
 var empty_style: StyleBoxTexture
+onready var player = find_parent("Player")
 
 
 func _ready():
@@ -16,19 +17,19 @@ func _ready():
 
 
 func _process(delta):
-	Globals.player_health = min(Globals.player_health, Globals.max_player_health)
+	player.health = min(player.health, player.max_health)
 		
-	if previous_frame_health != Globals.player_health:
+	if previous_frame_health != player.health:
 		refresh_health_bar()
 	
-	previous_frame_health = Globals.player_health
+	previous_frame_health = player.health
 		
 		
 func refresh_health_bar():
 	for heart in $HealthBar.get_children():
 		var heart_number = int(heart.name.replace("Heart", ""))
 		
-		if heart_number <= Globals.player_health:
+		if heart_number <= player.health:
 			heart.set("custom_styles/panel", normal_style)
 		else:
 			heart.set("custom_styles/panel", empty_style)

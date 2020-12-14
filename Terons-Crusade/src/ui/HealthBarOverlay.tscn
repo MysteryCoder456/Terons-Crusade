@@ -8,6 +8,8 @@ texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 72, 72 )
 
 [node name="HealthBarOverlay" type="Node2D"]
+scale = Vector2( 0.3, 0.3 )
+z_index = 1
 script = ExtResource( 2 )
 
 [node name="HealthBar" type="GridContainer" parent="."]

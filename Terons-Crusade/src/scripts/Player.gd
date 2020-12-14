@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 var velocity: Vector2
 export var speed: Vector2
-export var reach_distance: float
+export var reach_distance: float # in pixels
 export var hotbar_disappear_time = 2 # in seconds
 
 var inventory_open = false
@@ -11,8 +11,21 @@ var current_hotbar_selection = 0
 var previous_hotbar_selection = 0
 var hotbar_timer = hotbar_disappear_time
 
+var health = 10
+export var max_health: int
+
 
 func _ready():
+	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
+	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
+	var health_bar_adjust = Vector2(5, -5)
+	var health_bar_pos = Vector2(
+		-camera_size.x / 2 + health_bar_size.x / 2,
+		-camera_size.y / 2 + health_bar_size.y / 2
+	) + health_bar_adjust
+	
+	$HealthBarOverlay.position = health_bar_pos
+	
 	$AnimatedSprite.playing = true
 	$Inventory.visible = false
 	
@@ -86,6 +99,8 @@ func _input(event):
 
 
 func _physics_process(delta):
+	print($HealthBarOverlay.position)
+	
 	if hotbar_timer < hotbar_disappear_time:
 		hotbar_timer += delta
 		if not $HotbarOverlay.visible:
