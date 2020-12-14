@@ -95,9 +95,7 @@ func _input(event):
 			refresh_inventory(true)
 
 
-func _physics_process(delta):
-	print($HealthBarOverlay.position)
-	
+func _physics_process(delta):	
 	if hotbar_timer < hotbar_disappear_time:
 		hotbar_timer += delta
 		if not $HotbarOverlay.visible:
