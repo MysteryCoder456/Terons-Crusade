@@ -14,8 +14,13 @@ var hotbar_timer = hotbar_disappear_time
 var health = 10
 export var max_health: int
 
+var minimum_fall_damage_velocity: float
+
 
 func _ready():
+	var minimum_fall_damage_blocks = 5  # 80 pixels
+	minimum_fall_damage_velocity = sqrt(2 * Globals.gravity * (minimum_fall_damage_blocks * 16))
+	
 	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
 	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
 	var health_bar_adjust = Vector2(5, -5)
@@ -192,3 +197,9 @@ func _on_ItemPickupDetector_body_entered(body):
 func _on_ItemPickupDetector_body_exited(body):
 	if body in itemdrops_in_reach:
 		itemdrops_in_reach.erase(body)
+
+
+func _on_FallDamageDetector_body_entered(body):
+	if body.is_in_group("ground"):
+		if velocity.y >= minimum_fall_damage_velocity:
+			print("took fall damage...")

@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed: float = 4000
+export var speed: float = 5000
 export var item_name = "Sword"
 export var item_quantity = 1
 var velocity: Vector2

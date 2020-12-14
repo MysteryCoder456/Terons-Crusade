@@ -11,7 +11,9 @@ script = ExtResource( 3 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 178.553, 99.3685 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=[
+"ground",
+]]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 collision_mask = 6
@@ -26,17 +28,17 @@ item_name = "Pickaxe"
 
 [node name="ItemDrop3" parent="." instance=ExtResource( 4 )]
 position = Vector2( -27.5776, 4.76837e-07 )
-speed = 4000.0
+speed = 5000.0
 item_name = "Grass Block"
-item_quantity = 5
+item_quantity = 64
 
 [node name="ItemDrop4" parent="." instance=ExtResource( 4 )]
 position = Vector2( -55.2848, 4.76837e-07 )
-speed = 4000.0
+speed = 5000.0
 item_name = "Dirt Block"
-item_quantity = 60
+item_quantity = 64
 
 [node name="ItemDrop5" parent="." instance=ExtResource( 4 )]
 position = Vector2( 52.4268, 0.0541325 )
-speed = 4000.0
+speed = 5000.0
 item_name = "Shovel"
