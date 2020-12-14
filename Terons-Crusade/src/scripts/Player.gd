@@ -202,4 +202,5 @@ func _on_ItemPickupDetector_body_exited(body):
 func _on_FallDamageDetector_body_entered(body):
 	if body.is_in_group("ground"):
 		if velocity.y >= minimum_fall_damage_velocity:
-			print("took fall damage...")
+			var fall_damage = int(velocity.y / 100 - minimum_fall_damage_velocity / 100)
+			health -= fall_damage
