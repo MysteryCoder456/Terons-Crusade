@@ -10,7 +10,7 @@ var previous_hotbar_selection = 0
 var hotbar_timer = hotbar_disappear_time
 
 
-func _ready():	
+func _ready():
 	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
 	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
 	var health_bar_adjust = Vector2(5, -5)
@@ -87,7 +87,7 @@ func _input(event):
 			refresh_inventory(true)
 
 
-func _process(delta):	
+func _process(delta):
 	if hotbar_timer < hotbar_disappear_time:
 		hotbar_timer += delta
 		if not $HotbarOverlay.visible:
@@ -163,10 +163,3 @@ func _on_ItemPickupDetector_body_entered(body):
 func _on_ItemPickupDetector_body_exited(body):
 	if body in itemdrops_in_reach:
 		itemdrops_in_reach.erase(body)
-
-
-func _on_FallDamageDetector_body_entered(body):
-	if body.is_in_group("ground"):
-		if velocity.y >= Globals.minimum_fall_damage_velocity:
-			var fall_damage = int(velocity.y / 100 - Globals.minimum_fall_damage_velocity / 100)
-			health -= fall_damage
