@@ -15,7 +15,7 @@ var is_dead = false
 func _ready():
 	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
 	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
-	var health_bar_adjust = Vector2(5, -5)
+	var health_bar_adjust = Vector2(5, 0)
 	var health_bar_pos = -camera_size / 2 + health_bar_size / 2 + health_bar_adjust
 	
 	$HealthBarOverlay.position = health_bar_pos
