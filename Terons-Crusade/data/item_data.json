@@ -17,13 +17,19 @@
     "Dirt Block": {
         "category": "block",
         "stack_size": 64,
-        "block_id": 2,
+        "block_id": 0,
         "tool_type_required": "shovel"
     },
     "Grass Block": {
         "category": "block",
         "stack_size": 64,
-        "block_id": 1,
+        "block_id": 2,
         "tool_type_required": "shovel"
+    },
+    "Stone Block": {
+        "category": "block",
+        "stack_size": 64,
+        "block_id": 3,
+        "tool_type_required": "pickaxe"
     }
 }
