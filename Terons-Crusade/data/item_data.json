@@ -17,7 +17,7 @@
     "Dirt Block": {
         "category": "block",
         "stack_size": 64,
-        "block_id": 0,
+        "block_id": 1,
         "tool_type_required": "shovel"
     },
     "Grass Block": {

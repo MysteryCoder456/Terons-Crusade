@@ -109,5 +109,8 @@ drop_item={
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+quality/2d/use_pixel_snap=true
 environment/default_clear_color=Color( 0.0509804, 0.658824, 0.956863, 1 )
 environment/default_environment="res://default_env.tres"

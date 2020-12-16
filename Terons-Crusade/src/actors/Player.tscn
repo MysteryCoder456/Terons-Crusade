@@ -36,6 +36,7 @@ zoom = Vector2( 0.4, 0.4 )
 visible = false
 
 [node name="HotbarOverlay" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( 0, -60 )
 
 [node name="HealthBarOverlay" parent="." instance=ExtResource( 5 )]

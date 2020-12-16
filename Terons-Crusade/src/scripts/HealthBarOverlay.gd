@@ -17,9 +17,8 @@ func _ready():
 
 
 func _process(delta):
-	player.health = min(player.health, player.max_health)
-		
 	if previous_frame_health != player.health:
+		player.health = min(player.health, player.max_health)
 		refresh_health_bar()
 	
 	previous_frame_health = player.health

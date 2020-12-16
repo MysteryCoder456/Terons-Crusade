@@ -4,6 +4,10 @@ onready var player = get_node("Player")
 const DIRECTIONS = [Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT, Vector2.UP]
 
 
+func _ready():
+	print($TileMap.tile_set.get_tiles_ids())
+	
+
 func _input(event):
 	if !player.inventory_open:
 		var player_held_item = Globals.player_hotbar[player.current_hotbar_selection]
