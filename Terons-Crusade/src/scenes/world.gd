@@ -5,7 +5,7 @@ const DIRECTIONS = [Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT, Vector2.UP]
 
 
 func _ready():
-	print($TileMap.tile_set.get_tiles_ids())
+	print("TileSet Tile IDs: ", $TileMap.tile_set.get_tiles_ids())
 	
 
 func _input(event):
