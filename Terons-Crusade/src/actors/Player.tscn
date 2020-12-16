@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/spriteframes/player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/ui/Inventory.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/ui/HotbarOverlay.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/ui/HealthBarOverlay.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/animations/jitter.tres" type="Animation" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 16 )
@@ -47,5 +48,12 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupDetector"]
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/jitter = ExtResource( 6 )
+
+[node name="ParticlesPosition" type="Position2D" parent="."]
+position = Vector2( 0, 17 )
 [connection signal="body_entered" from="ItemPickupDetector" to="." method="_on_ItemPickupDetector_body_entered"]
 [connection signal="body_exited" from="ItemPickupDetector" to="." method="_on_ItemPickupDetector_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

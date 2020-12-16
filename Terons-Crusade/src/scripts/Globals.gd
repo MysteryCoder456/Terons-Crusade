@@ -8,6 +8,7 @@ var minimum_fall_damage_velocity = sqrt(2 * gravity * (minimum_fall_damage_block
 var Player = load("res://src/scripts/Player.gd")
 const Item = preload("res://src/ui/Item.tscn")
 const ItemDrop = preload("res://src/actors/ItemDrop.tscn")
+const BloodParticles = preload("res://src/particles/BloodParticles.tscn")
 
 var player_hotbar = {
 	0: null,

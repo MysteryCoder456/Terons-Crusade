@@ -9,6 +9,8 @@ var current_hotbar_selection = 0
 var previous_hotbar_selection = 0
 var hotbar_timer = hotbar_disappear_time
 
+var is_dead = false
+
 
 func _ready():
 	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
@@ -22,72 +24,77 @@ func _ready():
 	
 	
 func _input(event):
-	# Open Inventory
-	if Input.is_action_just_pressed("open_inventory"):
-		$Inventory.visible = !inventory_open
-		hotbar_timer = hotbar_disappear_time
-		inventory_open = $Inventory.visible
-	
-	# Pickup Item Drops
-	if Input.is_action_just_pressed("pickup_item"):
-		if len(itemdrops_in_reach) > 0:
-			for itemdrop in itemdrops_in_reach:
-				itemdrop.pick_up(self)
+	if not is_dead:
+		# Open Inventory
+		if Input.is_action_just_pressed("open_inventory"):
+			$Inventory.visible = !inventory_open
+			hotbar_timer = hotbar_disappear_time
+			inventory_open = $Inventory.visible
+		
+		# Pickup Item Drops
+		if Input.is_action_just_pressed("pickup_item"):
+			if len(itemdrops_in_reach) > 0:
+				for itemdrop in itemdrops_in_reach:
+					itemdrop.pick_up(self)
+					
+		previous_hotbar_selection = current_hotbar_selection
+		
+		if not inventory_open:
+			# Hotbar Item Selection
+			if Input.is_action_just_pressed("hotbar_up"):
+				current_hotbar_selection -= 1
+			elif Input.is_action_just_pressed("hotbar_down"):
+				current_hotbar_selection += 1
+			
+			if current_hotbar_selection > 8:
+				current_hotbar_selection = 0
+			elif current_hotbar_selection < 0:
+				current_hotbar_selection = 8
+			
+			if Input.is_key_pressed(KEY_1):
+				current_hotbar_selection = 0
+			elif Input.is_key_pressed(KEY_2):
+				current_hotbar_selection = 1
+			elif Input.is_key_pressed(KEY_3):
+				current_hotbar_selection = 2
+			elif Input.is_key_pressed(KEY_4):
+				current_hotbar_selection = 3
+			elif Input.is_key_pressed(KEY_5):
+				current_hotbar_selection = 4
+			elif Input.is_key_pressed(KEY_6):
+				current_hotbar_selection = 5
+			elif Input.is_key_pressed(KEY_7):
+				current_hotbar_selection = 6
+			elif Input.is_key_pressed(KEY_8):
+				current_hotbar_selection = 7
+			elif Input.is_key_pressed(KEY_9):
+				current_hotbar_selection = 8
 				
-	previous_hotbar_selection = current_hotbar_selection
-	
-	if not inventory_open:
-		# Hotbar Item Selection
-		if Input.is_action_just_pressed("hotbar_up"):
-			current_hotbar_selection -= 1
-		elif Input.is_action_just_pressed("hotbar_down"):
-			current_hotbar_selection += 1
-		
-		if current_hotbar_selection > 8:
-			current_hotbar_selection = 0
-		elif current_hotbar_selection < 0:
-			current_hotbar_selection = 8
-		
-		if Input.is_key_pressed(KEY_1):
-			current_hotbar_selection = 0
-		elif Input.is_key_pressed(KEY_2):
-			current_hotbar_selection = 1
-		elif Input.is_key_pressed(KEY_3):
-			current_hotbar_selection = 2
-		elif Input.is_key_pressed(KEY_4):
-			current_hotbar_selection = 3
-		elif Input.is_key_pressed(KEY_5):
-			current_hotbar_selection = 4
-		elif Input.is_key_pressed(KEY_6):
-			current_hotbar_selection = 5
-		elif Input.is_key_pressed(KEY_7):
-			current_hotbar_selection = 6
-		elif Input.is_key_pressed(KEY_8):
-			current_hotbar_selection = 7
-		elif Input.is_key_pressed(KEY_9):
-			current_hotbar_selection = 8
+			if current_hotbar_selection != previous_hotbar_selection:
+				get_node("HotbarOverlay/Hotbar/Slot" + String(current_hotbar_selection + 1)).select()
+				get_node("HotbarOverlay/Hotbar/Slot" + String(previous_hotbar_selection + 1)).deselect()
+				hotbar_timer = 0
 			
-		if current_hotbar_selection != previous_hotbar_selection:
-			get_node("HotbarOverlay/Hotbar/Slot" + String(current_hotbar_selection + 1)).select()
-			get_node("HotbarOverlay/Hotbar/Slot" + String(previous_hotbar_selection + 1)).deselect()
-			hotbar_timer = 0
-		
-	# Dropping items from hotbar
-	if Input.is_action_just_pressed("drop_item"):
-		var item_info = Globals.player_hotbar[current_hotbar_selection]
-		if item_info:
-			var item_drop = Globals.ItemDrop.instance()
-			
-			item_drop.init(item_info[0], item_info[1])
-			item_drop.global_position = self.global_position
-			find_parent("world").add_child(item_drop)
-			
-			Globals.player_hotbar[current_hotbar_selection] = null
-			sync_hotbar_overlay()
-			refresh_inventory(true)
+		# Dropping items from hotbar
+		if Input.is_action_just_pressed("drop_item"):
+			var item_info = Globals.player_hotbar[current_hotbar_selection]
+			if item_info:
+				var item_drop = Globals.ItemDrop.instance()
+				
+				item_drop.init(item_info[0], item_info[1])
+				item_drop.global_position = self.global_position
+				find_parent("world").add_child(item_drop)
+				
+				Globals.player_hotbar[current_hotbar_selection] = null
+				sync_hotbar_overlay()
+				refresh_inventory(true)
 
 
 func _process(delta):
+	if health <= 0 and not is_dead:
+		is_dead = true
+		$AnimationPlayer.play("jitter")
+	
 	if hotbar_timer < hotbar_disappear_time:
 		hotbar_timer += delta
 		if not $HotbarOverlay.visible:
@@ -142,17 +149,20 @@ func refresh_inventory(only_hotbar = false):
 	
 	
 func get_movement_velocity():
-	var movement_vector = velocity
-	
-	if !inventory_open:
-		movement_vector.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * speed.x
-
-	if Input.is_action_just_pressed("jump") and is_on_floor() and !inventory_open:
-		movement_vector.y = -speed.y
+	if is_dead:
+		return Vector2.ZERO
 	else:
-		movement_vector.y += Globals.gravity * get_physics_process_delta_time()
-	
-	return movement_vector
+		var movement_vector = velocity
+		
+		if !inventory_open:
+			movement_vector.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * speed.x
+
+		if Input.is_action_just_pressed("jump") and is_on_floor() and !inventory_open:
+			movement_vector.y = -speed.y
+		else:
+			movement_vector.y += Globals.gravity * get_physics_process_delta_time()
+		
+		return movement_vector
 
 
 func _on_ItemPickupDetector_body_entered(body):
@@ -163,3 +173,23 @@ func _on_ItemPickupDetector_body_entered(body):
 func _on_ItemPickupDetector_body_exited(body):
 	if body in itemdrops_in_reach:
 		itemdrops_in_reach.erase(body)
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "jitter" and is_dead:
+		var particles = Globals.BloodParticles.instance()
+		particles.global_position = $ParticlesPosition.global_position
+		find_parent("world").add_child(particles)
+		particles.emitting = true
+		$AnimatedSprite.visible = false
+		
+		# Wait until particle has finished emitting
+		var t = Timer.new()
+		t.set_wait_time(particles.lifetime + 0.5)
+		t.set_one_shot(true)
+		add_child(t)
+		t.start()
+		yield(t, "timeout")
+#
+		particles.queue_free()
+		t.queue_free()
