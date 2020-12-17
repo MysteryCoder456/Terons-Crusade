@@ -88,6 +88,12 @@ func _input(event):
 				Globals.player_hotbar[current_hotbar_selection] = null
 				sync_hotbar_overlay()
 				refresh_inventory(true)
+				
+		var item_info = Globals.player_hotbar[current_hotbar_selection]
+		if item_info:
+			$HeldItem.change_item(item_info[0])
+		else:
+			$HeldItem.change_item(null)
 
 
 func _process(delta):
@@ -160,6 +166,17 @@ func get_movement_velocity():
 		movement_vector.y += Globals.gravity * get_physics_process_delta_time()
 	
 	return movement_vector
+	
+	
+func flip_horizontal(flip_h: bool):
+	$AnimatedSprite.flip_h = flip_h
+	
+	if flip_h:
+		$HeldItem.scale.x = -1
+		$HeldItem.position.x = -7
+	else:
+		$HeldItem.scale.x = 1
+		$HeldItem.position.x = 7
 
 
 func _on_ItemPickupDetector_body_entered(body):

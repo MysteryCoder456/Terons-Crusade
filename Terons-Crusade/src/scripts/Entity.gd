@@ -43,10 +43,10 @@ func animate_character():
 	if velocity != Vector2.ZERO:
 		if velocity.x > 0:
 			$AnimatedSprite.play("running")
-			$AnimatedSprite.flip_h = false
+			flip_horizontal(false)
 		elif velocity.x < 0:
 			$AnimatedSprite.play("running")
-			$AnimatedSprite.flip_h = true
+			flip_horizontal(true)
 			
 		if velocity.y > 0:
 			$AnimatedSprite.play("falling")
@@ -59,3 +59,7 @@ func animate_character():
 func apply_fall_damage():
 	var fall_damage = int((velocity.y - Globals.minimum_fall_damage_velocity) / 100)
 	health -= fall_damage
+	
+
+func flip_horizontal(flip_h: bool):
+	$AnimatedSprite.flip_h = flip_h
