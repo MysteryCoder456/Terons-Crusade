@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/tilesets/overworld.tres" type="TileSet" id=1]
 [ext_resource path="res://src/actors/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/scenes/world.gd" type="Script" id=3]
+[ext_resource path="res://src/scripts/world.gd" type="Script" id=3]
 [ext_resource path="res://src/actors/ItemDrop.tscn" type="PackedScene" id=4]
 
 [node name="world" type="Node2D"]
