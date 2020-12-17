@@ -1,3 +1,36 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource path="res://menu/startbutton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://menu/optionsbutton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://menu/quitbutton.tscn" type="PackedScene" id=3]
+
+[node name="mainmenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 32.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="startbutton" parent="." instance=ExtResource( 1 )]
+anchor_top = 0.499999
+anchor_right = 0.572917
+anchor_bottom = 0.569445
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="optionsbutton" parent="." instance=ExtResource( 2 )]
+anchor_top = 0.592593
+anchor_bottom = 0.662037
+
+[node name="quitbutton" parent="." instance=ExtResource( 3 )]
+anchor_left = 0.416667
+anchor_top = 0.683333
+anchor_right = 0.572917
+anchor_bottom = 0.752778
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+[connection signal="mouse_entered" from="quitbutton" to="quitbutton" method="_on_quitbutton_mouse_entered"]
