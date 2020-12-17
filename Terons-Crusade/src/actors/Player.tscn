@@ -15,6 +15,7 @@ extents = Vector2( 7, 16 )
 extents = Vector2( 30, 30 )
 
 [node name="Player" type="KinematicBody2D"]
+z_index = 1
 collision_layer = 4
 script = ExtResource( 2 )
 speed = Vector2( 150, 325 )
@@ -32,6 +33,9 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.4, 0.4 )
+
+[node name="HeldItem" parent="." instance=ExtResource( 7 )]
+position = Vector2( 8, 6 )
 
 [node name="Inventory" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -56,9 +60,6 @@ position = Vector2( 0, 17 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/jitter = ExtResource( 6 )
-
-[node name="HeldItem" parent="." instance=ExtResource( 7 )]
-position = Vector2( 7, 7 )
 [connection signal="body_entered" from="ItemPickupDetector" to="." method="_on_ItemPickupDetector_body_entered"]
 [connection signal="body_exited" from="ItemPickupDetector" to="." method="_on_ItemPickupDetector_body_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
