@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="optionsbutton" type="Button"]
+anchor_left = 0.416667
+anchor_top = 0.474074
+anchor_right = 0.572917
+anchor_bottom = 0.543519
+hint_tooltip = "This feature is currently in development."
+disabled = true
+text = "QUIT"
+__meta__ = {
+"_edit_use_anchors_": true
+}
