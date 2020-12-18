@@ -1,7 +1,4 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://src/menu/quitbutton.gd" type="Script" id=1]
-
+[gd_scene format=2]
 
 [node name="quitbutton" type="Button"]
 anchor_left = 0.5
@@ -13,8 +10,6 @@ margin_top = 86.0
 margin_right = 140.0
 margin_bottom = 161.0
 text = "QUIT"
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="." to="." method="_on_quitbutton_pressed"]

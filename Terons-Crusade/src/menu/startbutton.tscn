@@ -1,7 +1,4 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://src/menu/startbutton.gd" type="Script" id=1]
-
+[gd_scene format=2]
 
 [node name="startbutton" type="Button"]
 anchor_left = 0.416667
@@ -12,9 +9,6 @@ margin_right = 12.0
 margin_bottom = 11.0
 text = "START"
 clip_text = true
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
-[connection signal="mouse_entered" from="." to="." method="_on_startbutton_mouse_entered"]
-[connection signal="pressed" from="." to="." method="_on_startbutton_pressed"]
