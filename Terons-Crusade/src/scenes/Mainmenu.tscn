@@ -1,15 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/menu/startbutton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/menu/optionsbutton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/menu/quitbutton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/scripts/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://assets/sounds/click1.wav" type="AudioStream" id=5]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 32.0
-margin_bottom = 32.0
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -35,5 +34,10 @@ margin_left = 0.0
 margin_top = 0.0
 margin_right = 0.0
 margin_bottom = 0.0
+
+[node name="buttonhoversound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+[connection signal="mouse_entered" from="StartButton" to="." method="_on_StartButton_mouse_entered"]
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="mouse_entered" from="QuitButton" to="." method="_on_QuitButton_mouse_entered"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
