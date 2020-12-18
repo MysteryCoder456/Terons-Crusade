@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Terons-Crusade"
-run/main_scene="res://src/scenes/Mainmenu.tscn"
+run/main_scene="res://src/scenes/MainMenu.tscn"
 config/icon="res://assets/logos/logo.png"
 config/macos_native_icon="res://assets/logos/logo.icns"
 config/windows_native_icon="res://assets/logos/logo.ico"
