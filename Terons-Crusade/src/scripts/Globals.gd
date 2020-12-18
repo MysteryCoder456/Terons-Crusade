@@ -1,6 +1,7 @@
 extends Node
 
 var gravity = 1000
+var void_height = 2000
 
 var minimum_fall_damage_blocks = 5  # 80 pixels
 var minimum_fall_damage_velocity = sqrt(2 * gravity * (minimum_fall_damage_blocks * 16))

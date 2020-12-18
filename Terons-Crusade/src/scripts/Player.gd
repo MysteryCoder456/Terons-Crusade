@@ -9,13 +9,13 @@ var current_hotbar_selection = 0
 var previous_hotbar_selection = 0
 var hotbar_timer = hotbar_disappear_time
 
-var is_dead = false
+var death_animation_played = false  # Important to prevent death animation from repeating
 
 
 func _ready():
 	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
 	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
-	var health_bar_adjust = Vector2(5, -5)
+	var health_bar_adjust = Vector2(5, 0)
 	var health_bar_pos = -camera_size / 2 + health_bar_size / 2 + health_bar_adjust
 	
 	$HealthBarOverlay.position = health_bar_pos
@@ -91,10 +91,10 @@ func _input(event):
 
 
 func _process(delta):
-	if health <= 0 and not is_dead:
-		is_dead = true
+	if is_dead and not death_animation_played:
+		$AnimatedSprite.playing = false
 		$AnimationPlayer.play("jitter")
-	
+		
 	if hotbar_timer < hotbar_disappear_time:
 		hotbar_timer += delta
 		if not $HotbarOverlay.visible:
@@ -149,20 +149,17 @@ func refresh_inventory(only_hotbar = false):
 	
 	
 func get_movement_velocity():
-	if is_dead:
-		return Vector2.ZERO
-	else:
-		var movement_vector = velocity
-		
-		if !inventory_open:
-			movement_vector.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * speed.x
+	var movement_vector = velocity
+	
+	if !inventory_open:
+		movement_vector.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * speed.x
 
-		if Input.is_action_just_pressed("jump") and is_on_floor() and !inventory_open:
-			movement_vector.y = -speed.y
-		else:
-			movement_vector.y += Globals.gravity * get_physics_process_delta_time()
-		
-		return movement_vector
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !inventory_open:
+		movement_vector.y = -speed.y
+	else:
+		movement_vector.y += Globals.gravity * get_physics_process_delta_time()
+	
+	return movement_vector
 
 
 func _on_ItemPickupDetector_body_entered(body):
@@ -177,6 +174,9 @@ func _on_ItemPickupDetector_body_exited(body):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "jitter" and is_dead:
+		death_animation_played = true
+		
+		# Create blood particles
 		var particles = Globals.BloodParticles.instance()
 		particles.global_position = $ParticlesPosition.global_position
 		find_parent("world").add_child(particles)
@@ -190,6 +190,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		add_child(t)
 		t.start()
 		yield(t, "timeout")
-#
+		
 		particles.queue_free()
 		t.queue_free()

@@ -6,6 +6,7 @@ export var speed: Vector2
 
 var health = 10
 export var max_health: int
+var is_dead = false
 
 
 func _ready():
@@ -14,15 +15,24 @@ func _ready():
 	
 	
 func _physics_process(delta):
-	animate_character()
-	velocity = get_movement_velocity()
-	var temp_vel = move_and_slide(velocity, Vector2.UP)
+	if health <= 0:
+		is_dead = true
+	
+	if not is_dead:
+		velocity = get_movement_velocity()
+		var temp_vel = move_and_slide(velocity, Vector2.UP)
+		
+		# Fall damage
+		if is_on_floor() and velocity.y >= Globals.minimum_fall_damage_velocity:
+			apply_fall_damage()
+		
+		# Void damage
+		if global_position.y >= Globals.void_height:
+			health -= delta
+			
+		velocity = temp_vel
+		animate_character()
 
-	if is_on_floor() and velocity.y >= Globals.minimum_fall_damage_velocity:
-		apply_fall_damage()
-		
-	velocity = temp_vel
-		
 
 func get_movement_velocity():
 	# TODO: Add enemy AI
