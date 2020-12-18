@@ -1,30 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://menu/startbutton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://menu/optionsbutton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://menu/quitbutton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/menu/startbutton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/menu/optionsbutton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/menu/quitbutton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/scripts/MainMenu.gd" type="Script" id=4]
 
-[node name="mainmenu" type="Control"]
+[node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 32.0
 margin_bottom = 32.0
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="startbutton" parent="." instance=ExtResource( 1 )]
+[node name="StartButton" parent="." instance=ExtResource( 1 )]
 anchor_top = 0.499999
 anchor_right = 0.572917
 anchor_bottom = 0.569445
 margin_right = 0.0
 margin_bottom = 0.0
 
-[node name="optionsbutton" parent="." instance=ExtResource( 2 )]
+[node name="OptionsButton" parent="." instance=ExtResource( 2 )]
 anchor_top = 0.592593
 anchor_bottom = 0.662037
 
-[node name="quitbutton" parent="." instance=ExtResource( 3 )]
+[node name="QuitButton" parent="." instance=ExtResource( 3 )]
 anchor_left = 0.416667
 anchor_top = 0.683333
 anchor_right = 0.572917
@@ -33,4 +35,5 @@ margin_left = 0.0
 margin_top = 0.0
 margin_right = 0.0
 margin_bottom = 0.0
-[connection signal="mouse_entered" from="quitbutton" to="quitbutton" method="_on_quitbutton_mouse_entered"]
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
