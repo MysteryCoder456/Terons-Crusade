@@ -14,11 +14,13 @@ func _ready():
 	$Inventory.visible = false
 	
 	
-func _physics_process(delta):
+func _physics_process(delta):	
 	if health <= 0:
 		is_dead = true
 	
 	if not is_dead:
+		animate_character()
+		
 		velocity = get_movement_velocity()
 		var temp_vel = move_and_slide(velocity, Vector2.UP)
 		
@@ -31,7 +33,6 @@ func _physics_process(delta):
 			health -= delta
 			
 		velocity = temp_vel
-		animate_character()
 
 
 func get_movement_velocity():

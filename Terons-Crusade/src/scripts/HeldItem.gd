@@ -6,7 +6,7 @@ export var texture_scale: float = 1
 func _input(event):
 	if Input.is_action_just_pressed("break"):
 		if item_name:
-			var item_info = JsonData.item_data[item_name] 
+			var item_info = JsonData.item_data[item_name]
 			if item_info["category"] == "weapon" or item_info["category"] == "tool":
 				$AnimationPlayer.play("swing")
 			

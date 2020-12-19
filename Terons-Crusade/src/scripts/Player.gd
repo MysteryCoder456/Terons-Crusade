@@ -15,7 +15,7 @@ var death_animation_played = false  # Important to prevent death animation from 
 func _ready():
 	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
 	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
-	var health_bar_adjust = Vector2(5, 0)
+	var health_bar_adjust = Vector2(5, 3)
 	var health_bar_pos = -camera_size / 2 + health_bar_size / 2 + health_bar_adjust
 	
 	$HealthBarOverlay.position = health_bar_pos
@@ -97,6 +97,8 @@ func _input(event):
 
 
 func _process(delta):
+	$HeldItem.visible = (velocity == Vector2.ZERO)
+	
 	if is_dead and not death_animation_played:
 		$AnimatedSprite.playing = false
 		$AnimationPlayer.play("jitter")
