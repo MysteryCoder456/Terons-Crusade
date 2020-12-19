@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/items/Sword/Sword.png" type="Texture" id=1]
+[ext_resource path="res://src/scripts/HeldItem.gd" type="Script" id=2]
+[ext_resource path="res://src/animations/swing.tres" type="Animation" id=3]
+
+[node name="HeldItem" type="Node2D"]
+script = ExtResource( 2 )
+texture_scale = 0.2
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+offset = Vector2( 25, -25 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/swing = ExtResource( 3 )
