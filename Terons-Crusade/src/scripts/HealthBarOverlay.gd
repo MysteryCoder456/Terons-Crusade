@@ -3,7 +3,9 @@ extends Node2D
 var previous_frame_health: int
 var normal_style: StyleBoxTexture
 var empty_style: StyleBoxTexture
+
 onready var player = find_parent("Player")
+onready var health_bar = $HealthBar
 
 
 func _ready():
@@ -25,7 +27,7 @@ func _process(delta):
 		
 		
 func refresh_health_bar():
-	for heart in $HealthBar.get_children():
+	for heart in health_bar.get_children():
 		var heart_number = int(heart.name.replace("Heart", ""))
 		
 		if heart_number <= player.health:

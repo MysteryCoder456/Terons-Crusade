@@ -8,10 +8,11 @@ var health = 10
 export var max_health: int
 var is_dead = false
 
+onready var animated_sprite = $AnimatedSprite
+
 
 func _ready():
-	$AnimatedSprite.playing = true
-	$Inventory.visible = false
+	animated_sprite.playing = true
 	
 	
 func _physics_process(delta):	
@@ -43,18 +44,18 @@ func get_movement_velocity():
 func animate_character():
 	if velocity != Vector2.ZERO:
 		if velocity.x > 0:
-			$AnimatedSprite.play("running")
+			animated_sprite.play("running")
 			flip_horizontal(false)
 		elif velocity.x < 0:
-			$AnimatedSprite.play("running")
+			animated_sprite.play("running")
 			flip_horizontal(true)
 			
 		if velocity.y > 0:
-			$AnimatedSprite.play("falling")
+			animated_sprite.play("falling")
 		elif velocity.y < 0:
-			$AnimatedSprite.play("jumping")
+			animated_sprite.play("jumping")
 	else:
-		$AnimatedSprite.play("idle")
+		animated_sprite.play("idle")
 		
 
 func apply_fall_damage():
@@ -63,4 +64,4 @@ func apply_fall_damage():
 	
 
 func flip_horizontal(flip_h: bool):
-	$AnimatedSprite.flip_h = flip_h
+	animated_sprite.flip_h = flip_h

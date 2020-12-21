@@ -1,11 +1,12 @@
 extends Node2D
 
-onready var player = get_node("Player")
 const DIRECTIONS = [Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT, Vector2.UP]
+onready var player = get_node("Player")
+onready var tile_map = $TileMap
 
 
 func _ready():
-	print("TileSet Tile IDs: ", $TileMap.tile_set.get_tiles_ids())
+	print("TileSet Tile IDs: ", tile_map.tile_set.get_tiles_ids())
 	
 
 func _input(event):
@@ -21,11 +22,11 @@ func _input(event):
 					var block_id = item_info["block_id"]
 					
 					if mouse_pos.distance_to(player.global_position) <= player.reach_distance:
-						var block_position = $TileMap.world_to_map(mouse_pos)
+						var block_position = tile_map.world_to_map(mouse_pos)
 						
-						if $TileMap.get_cellv(block_position) == $TileMap.INVALID_CELL:
+						if tile_map.get_cellv(block_position) == tile_map.INVALID_CELL:
 							if is_block_nearby(block_position):
-								$TileMap.set_cellv(block_position, block_id)
+								tile_map.set_cellv(block_position, block_id)
 								
 								# Remove item from inventory
 								if Globals.player_hotbar[player.current_hotbar_selection][1] > 1:
@@ -38,19 +39,19 @@ func _input(event):
 								
 			elif item_info["category"] == "tool":
 				if Input.is_action_just_pressed("break"):
-					var block_position = $TileMap.world_to_map(mouse_pos)
-					var cell_id = $TileMap.get_cellv(block_position)
+					var block_position = tile_map.world_to_map(mouse_pos)
+					var cell_id = tile_map.get_cellv(block_position)
 					
-					if cell_id != $TileMap.INVALID_CELL:
-						var tool_type_required = JsonData.item_data[$TileMap.tile_set.tile_get_name(cell_id)]["tool_type_required"]
+					if cell_id != tile_map.INVALID_CELL:
+						var tool_type_required = JsonData.item_data[tile_map.tile_set.tile_get_name(cell_id)]["tool_type_required"]
 						
 						if tool_type_required == item_info["tool_type"]:
 							if mouse_pos.distance_to(player.global_position) <= player.reach_distance:
-								$TileMap.set_cellv(block_position, $TileMap.INVALID_CELL)
+								tile_map.set_cellv(block_position, tile_map.INVALID_CELL)
 			
 			
 func is_block_nearby(block_pos) -> bool:
 	for direction in DIRECTIONS:
-		if $TileMap.get_cellv(block_pos + direction) != $TileMap.INVALID_CELL:
+		if tile_map.get_cellv(block_pos + direction) != tile_map.INVALID_CELL:
 			return true
 	return false

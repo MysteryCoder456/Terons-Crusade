@@ -11,14 +11,24 @@ var hotbar_timer = hotbar_disappear_time
 
 var death_animation_played = false  # Important to prevent death animation from repeating
 
+onready var camera = $Camera2D
+onready var health_bar_overlay = $HealthBarOverlay
+onready var inventory = $Inventory
+onready var held_item = $HeldItem
+onready var animation_player = $AnimationPlayer
+onready var hotbar_overlay = $HotbarOverlay
+onready var particles_position = $ParticlesPosition
+
 
 func _ready():
-	var camera_size = $Camera2D.get_viewport_rect().size * $Camera2D.zoom
-	var health_bar_size = $HealthBarOverlay/HealthBar.rect_size * $HealthBarOverlay.scale
+	var camera_size = camera.get_viewport_rect().size * camera.zoom
+	var health_bar_size = health_bar_overlay.get_node("HealthBar").rect_size * health_bar_overlay.scale
 	var health_bar_adjust = Vector2(5, 3)
 	var health_bar_pos = -camera_size / 2 + health_bar_size / 2 + health_bar_adjust
 	
-	$HealthBarOverlay.position = health_bar_pos
+	health_bar_overlay.position = health_bar_pos
+	
+	inventory.visible = false
 	
 	refresh_inventory()
 	
@@ -27,9 +37,9 @@ func _input(event):
 	if not is_dead:
 		# Open Inventory
 		if Input.is_action_just_pressed("open_inventory"):
-			$Inventory.visible = !inventory_open
+			inventory.visible = !inventory_open
 			hotbar_timer = hotbar_disappear_time
-			inventory_open = $Inventory.visible
+			inventory_open = inventory.visible
 		
 		# Pickup Item Drops
 		if Input.is_action_just_pressed("pickup_item"):
@@ -91,25 +101,25 @@ func _input(event):
 				
 		var item_info = Globals.player_hotbar[current_hotbar_selection]
 		if item_info:
-			$HeldItem.change_item(item_info[0])
+			held_item.change_item(item_info[0])
 		else:
-			$HeldItem.change_item(null)
+			held_item.change_item(null)
 
 
 func _process(delta):
-	$HeldItem.visible = (velocity == Vector2.ZERO)
+	held_item.visible = (velocity == Vector2.ZERO)
 	
 	if is_dead and not death_animation_played:
-		$AnimatedSprite.playing = false
-		$AnimationPlayer.play("jitter")
+		animated_sprite.playing = false
+		animation_player.play("jitter")
 		
 	if hotbar_timer < hotbar_disappear_time:
 		hotbar_timer += delta
-		if not $HotbarOverlay.visible:
-			$HotbarOverlay.visible = true
+		if not hotbar_overlay.visible:
+			hotbar_overlay.visible = true
 	else:
-		if $HotbarOverlay.visible:
-			$HotbarOverlay.visible = false
+		if hotbar_overlay.visible:
+			hotbar_overlay.visible = false
 	
 	
 func sync_hotbar_overlay():
@@ -171,14 +181,14 @@ func get_movement_velocity():
 	
 	
 func flip_horizontal(flip_h: bool):
-	$AnimatedSprite.flip_h = flip_h
+	animated_sprite.flip_h = flip_h
 	
 	if flip_h:
-		$HeldItem.scale.x = -1
-		$HeldItem.position.x = -7
+		held_item.scale.x = -1
+		held_item.position.x = -7
 	else:
-		$HeldItem.scale.x = 1
-		$HeldItem.position.x = 7
+		held_item.scale.x = 1
+		held_item.position.x = 7
 
 
 func _on_ItemPickupDetector_body_entered(body):
@@ -197,10 +207,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		
 		# Create blood particles
 		var particles = Globals.BloodParticles.instance()
-		particles.global_position = $ParticlesPosition.global_position
+		particles.global_position = particles_position.global_position
 		find_parent("world").add_child(particles)
 		particles.emitting = true
-		$AnimatedSprite.visible = false
+		animated_sprite.visible = false
 		
 		# Wait until particle has finished emitting
 		var t = Timer.new()
