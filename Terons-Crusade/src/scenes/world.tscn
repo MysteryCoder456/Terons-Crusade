@@ -49,3 +49,9 @@ position = Vector2( -275, -195 )
 speed = 5000.0
 item_name = "Stone Block"
 item_quantity = 64
+
+[node name="ItemDrop7" parent="." instance=ExtResource( 4 )]
+position = Vector2( -302, -195 )
+speed = 5000.0
+item_name = "Wood Log"
+item_quantity = 64
