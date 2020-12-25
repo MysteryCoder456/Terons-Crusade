@@ -11,7 +11,6 @@ var is_dead = false
 
 func _ready():
 	$AnimatedSprite.playing = true
-	$Inventory.visible = false
 	
 	
 func _physics_process(delta):	
@@ -36,7 +35,6 @@ func _physics_process(delta):
 
 
 func get_movement_velocity():
-	# TODO: Add enemy AI
 	pass
 	
 	
