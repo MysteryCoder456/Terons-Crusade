@@ -12,6 +12,9 @@ script = ExtResource( 3 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -119 )
 
+[node name="Skeleton" parent="." instance=ExtResource( 5 )]
+position = Vector2( -253, -35 )
+
 [node name="TileMap" type="TileMap" parent="." groups=[
 "ground",
 ]]
@@ -56,6 +59,3 @@ position = Vector2( -302, -195 )
 speed = 5000.0
 item_name = "Wood Log"
 item_quantity = 64
-
-[node name="Skeleton" parent="." instance=ExtResource( 5 )]
-position = Vector2( -253, -35 )
