@@ -7,7 +7,6 @@ onready var move_timer = $MoveTimer
 onready var wait_timer = $WaitTimer
 onready var attack_timer = $AttackTimer
 onready var attack_return_timer = $AttackReturnTimer
-onready var animated_sprite = $AnimatedSprite
 var is_moving = false
 var is_attacking = false
 var able_to_attack = true
