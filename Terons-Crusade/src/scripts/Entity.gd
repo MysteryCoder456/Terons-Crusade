@@ -37,7 +37,6 @@ func _physics_process(delta):
 
 
 func get_movement_velocity():
-	# TODO: Add enemy AI
 	pass
 	
 	

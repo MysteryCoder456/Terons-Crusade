@@ -32,6 +32,8 @@ func _ready():
 	
 	refresh_inventory()
 	
+	$Inventory.visible = false
+	
 	
 func _input(event):
 	if not is_dead:
