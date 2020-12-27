@@ -2,6 +2,7 @@ extends Entity
 
 export var reach_distance: float # in pixels
 export var hotbar_disappear_time = 2 # in seconds
+export var attack_knockback: float
 
 var inventory_open = false
 var itemdrops_in_reach = []
@@ -11,6 +12,8 @@ var hotbar_timer = hotbar_disappear_time
 
 var death_animation_played = false  # Important to prevent death animation from repeating
 
+var attackables = []
+
 onready var camera = $Camera2D
 onready var health_bar_overlay = $HealthBarOverlay
 onready var inventory = $Inventory
@@ -18,6 +21,7 @@ onready var held_item = $HeldItem
 onready var animation_player = $AnimationPlayer
 onready var hotbar_overlay = $HotbarOverlay
 onready var particles_position = $ParticlesPosition
+onready var attack_area_collision_shape = $AttackArea/CollisionShape2D
 
 
 func _ready():
@@ -37,6 +41,8 @@ func _ready():
 	
 func _input(event):
 	if not is_dead:
+		var item_info = Globals.player_hotbar[current_hotbar_selection]
+		
 		# Open Inventory
 		if Input.is_action_just_pressed("open_inventory"):
 			inventory.visible = !inventory_open
@@ -89,7 +95,6 @@ func _input(event):
 			
 		# Dropping items from hotbar
 		if Input.is_action_just_pressed("drop_item"):
-			var item_info = Globals.player_hotbar[current_hotbar_selection]
 			if item_info:
 				var item_drop = Globals.ItemDrop.instance()
 				
@@ -101,11 +106,25 @@ func _input(event):
 				sync_hotbar_overlay()
 				refresh_inventory(true)
 				
-		var item_info = Globals.player_hotbar[current_hotbar_selection]
 		if item_info:
 			held_item.change_item(item_info[0])
 		else:
 			held_item.change_item(null)
+			
+		# Attacking
+		if Input.is_action_just_pressed("break"):
+			if item_info:
+				var held_item_data = JsonData.item_data[item_info[0]]
+				
+				if held_item_data["category"] == "weapon":
+					for attackable in attackables:
+						attackable.health -= held_item_data["damage"]
+						attackable.stun()
+						
+						if animated_sprite.flip_h:
+							attackable.velocity.x -= attack_knockback
+						else:
+							attackable.velocity.x += attack_knockback
 
 
 func _process(delta):
@@ -184,13 +203,15 @@ func get_movement_velocity():
 	
 func flip_horizontal(flip_h: bool):
 	animated_sprite.flip_h = flip_h
-	
+
 	if flip_h:
 		held_item.scale.x = -1
 		held_item.position.x = -7
+		attack_area_collision_shape.position.x = -22
 	else:
 		held_item.scale.x = 1
 		held_item.position.x = 7
+		attack_area_collision_shape.position.x = 22
 
 
 func _on_ItemPickupDetector_body_entered(body):
@@ -201,6 +222,16 @@ func _on_ItemPickupDetector_body_entered(body):
 func _on_ItemPickupDetector_body_exited(body):
 	if body in itemdrops_in_reach:
 		itemdrops_in_reach.erase(body)
+
+
+func _on_AttackArea_body_entered(body):
+	if body.is_in_group("Attackable"):
+		attackables.append(body)
+
+
+func _on_AttackArea_body_exited(body):
+	if body.is_in_group("Attackable"):
+		attackables.erase(body)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

@@ -7,6 +7,8 @@ onready var move_timer = $MoveTimer
 onready var wait_timer = $WaitTimer
 onready var attack_timer = $AttackTimer
 onready var attack_return_timer = $AttackReturnTimer
+onready var stun_timer = $StunTimer
+
 var is_moving = false
 var is_attacking = false
 var able_to_attack = true
@@ -16,14 +18,18 @@ var target = null
 
 enum States {
 	IDLE,
-	ALERT
+	ALERT,
+	STUNNED
 }
 
 var state = States.IDLE
 
 
 func animate_character():
-	if velocity != Vector2.ZERO:
+	if state == States.STUNNED:
+		animated_sprite.play("stunned")
+		
+	elif velocity != Vector2.ZERO:
 		if velocity.x > 0:
 			animated_sprite.play("running")
 			flip_horizontal(false)
@@ -35,11 +41,12 @@ func animate_character():
 			animated_sprite.play("falling")
 		elif velocity.y < 0:
 			animated_sprite.play("jumping")
+			
+	elif is_attacking:
+		animated_sprite.play("attack")
+		
 	else:
-		if is_attacking:
-			animated_sprite.play("attack")
-		else:
-			animated_sprite.play("idle")
+		animated_sprite.play("idle")
 
 
 func get_movement_velocity():
@@ -50,6 +57,7 @@ func get_movement_velocity():
 			is_attacking = false
 			if is_moving:
 				movement_vector.x = direction * speed.x
+				
 		States.ALERT:
 			var distance_to_target = global_position.distance_to(target.global_position)
 			
@@ -63,6 +71,9 @@ func get_movement_velocity():
 				is_attacking = false
 				direction = Vector2(target.global_position - self.global_position).normalized().x
 				movement_vector.x = direction * speed.x
+				
+		States.STUNNED:
+			movement_vector.x *= 0.8
 			
 	movement_vector.y += Globals.gravity * get_physics_process_delta_time()
 			
@@ -76,6 +87,11 @@ func flip_horizontal(flip_h: bool):
 		animated_sprite.offset.x = -9
 	else:
 		animated_sprite.offset.x = 9
+		
+
+func stun():
+	state = States.STUNNED
+	stun_timer.start()
 
 
 func _on_MoveTimer_timeout():
@@ -114,6 +130,10 @@ func _on_PlayerDetector_body_exited(body):
 		wait_timer.start()
 		target = null
 		state = States.IDLE
+
+
+func _on_StunTimer_timeout():
+	state = States.ALERT
 
 
 func _on_AnimatedSprite_animation_finished():

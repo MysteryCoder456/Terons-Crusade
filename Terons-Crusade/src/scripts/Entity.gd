@@ -18,6 +18,8 @@ func _ready():
 func _physics_process(delta):	
 	if health <= 0:
 		is_dead = true
+		if not self.is_in_group("Player"):
+			queue_free()
 	
 	if not is_dead:
 		animate_character()

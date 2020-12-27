@@ -10,6 +10,7 @@ extents = Vector2( 9, 12 )
 radius = 300.0
 
 [node name="Skeleton" type="KinematicBody2D" groups=[
+"Attackable",
 "Enemy",
 ]]
 z_index = 1
@@ -22,7 +23,7 @@ attack_damage = 2.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "idle"
+animation = "stunned"
 offset = Vector2( 9, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -48,6 +49,10 @@ one_shot = true
 process_mode = 0
 one_shot = true
 
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
 [node name="PlayerDetector" type="Area2D" parent="."]
 visible = false
 
@@ -58,5 +63,6 @@ shape = SubResource( 2 )
 [connection signal="timeout" from="WaitTimer" to="." method="_on_WaitTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="AttackReturnTimer" to="." method="_on_AttackReturnTimer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_PlayerDetector_body_exited"]
