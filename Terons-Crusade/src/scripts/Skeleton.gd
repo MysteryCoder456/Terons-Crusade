@@ -92,6 +92,9 @@ func flip_horizontal(flip_h: bool):
 func stun():
 	state = States.STUNNED
 	stun_timer.start()
+	move_timer.stop()
+	wait_timer.stop()
+	attack_timer.stop()
 
 
 func _on_MoveTimer_timeout():
@@ -117,6 +120,10 @@ func _on_AttackReturnTimer_timeout():
 	able_to_attack = true
 
 
+func _on_StunTimer_timeout():
+	state = States.ALERT
+
+
 func _on_PlayerDetector_body_entered(body):
 	if body.is_in_group("Player"):
 		wait_timer.stop()
@@ -130,10 +137,6 @@ func _on_PlayerDetector_body_exited(body):
 		wait_timer.start()
 		target = null
 		state = States.IDLE
-
-
-func _on_StunTimer_timeout():
-	state = States.ALERT
 
 
 func _on_AnimatedSprite_animation_finished():
