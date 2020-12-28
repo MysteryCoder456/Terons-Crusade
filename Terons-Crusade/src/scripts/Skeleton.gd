@@ -13,6 +13,7 @@ var is_moving = false
 var is_attacking = false
 var able_to_attack = true
 var direction = 0
+var sprite_offset = 9
 
 var target = null
 
@@ -32,10 +33,14 @@ func animate_character():
 	elif velocity != Vector2.ZERO:
 		if velocity.x > 0:
 			animated_sprite.play("running")
+			sprite_offset = 2
 			flip_horizontal(false)
 		elif velocity.x < 0:
 			animated_sprite.play("running")
+			sprite_offset = 2
 			flip_horizontal(true)
+		else:
+			sprite_offset = 9
 			
 		if velocity.y > 0:
 			animated_sprite.play("falling")
@@ -84,9 +89,9 @@ func flip_horizontal(flip_h: bool):
 	animated_sprite.flip_h = flip_h
 	
 	if flip_h:
-		animated_sprite.offset.x = -9
+		animated_sprite.offset.x = -sprite_offset
 	else:
-		animated_sprite.offset.x = 9
+		animated_sprite.offset.x = sprite_offset
 		
 
 func stun():

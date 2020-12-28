@@ -4,7 +4,7 @@
 [ext_resource path="res://src/scripts/Skeleton.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 9, 12 )
+extents = Vector2( 9, 11 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 300.0
@@ -16,14 +16,14 @@ radius = 300.0
 z_index = 1
 collision_layer = 2
 script = ExtResource( 2 )
-speed = Vector2( 90, 0 )
+speed = Vector2( 50, 0 )
 max_health = 5
 attack_range = 2.0
 attack_damage = 2.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "stunned"
+animation = "idle"
 offset = Vector2( 9, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
