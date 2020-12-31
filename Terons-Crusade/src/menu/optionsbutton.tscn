@@ -1,13 +1,17 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="optionsbutton" type="Button"]
+[ext_resource path="res://assets/menu/buttons/options_button_black.png" type="Texture" id=1]
+[ext_resource path="res://assets/menu/buttons/options_button_white.png" type="Texture" id=2]
+
+[node name="optionsbutton" type="TextureButton"]
 anchor_left = 0.416667
 anchor_top = 0.474074
 anchor_right = 0.572917
 anchor_bottom = 0.543519
 hint_tooltip = "This feature is currently in development."
 disabled = true
-text = "QUIT"
+texture_normal = ExtResource( 1 )
+texture_hover = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }

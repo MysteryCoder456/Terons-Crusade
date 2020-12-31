@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://src/menu/menubackground.tscn" type="PackedScene" id=2]
@@ -6,6 +6,21 @@
 [ext_resource path="res://src/menu/quitbutton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/menu/startbutton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sounds/click1.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/menu/title.png" type="Texture" id=7]
+[ext_resource path="res://assets/menu/alpha.png" type="Texture" id=8]
+[ext_resource path="res://assets/fonts/RobotoCondensed-Bold.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/RobotoCondensed-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 15
+use_mipmaps = true
+use_filter = true
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 9 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -16,31 +31,82 @@ __meta__ = {
 }
 
 [node name="menubackground" parent="." instance=ExtResource( 2 )]
+position = Vector2( -1.88782, -1.49829 )
 
 [node name="StartButton" parent="." instance=ExtResource( 5 )]
-anchor_top = 0.499999
-anchor_right = 0.572917
-anchor_bottom = 0.569445
-margin_right = 0.0
-margin_bottom = 0.0
+anchor_top = 0.470369
+anchor_right = 0.579167
+anchor_bottom = 0.550001
+margin_right = -11.9999
+margin_bottom = -11.0017
 
 [node name="OptionsButton" parent="." instance=ExtResource( 3 )]
 anchor_top = 0.592593
 anchor_bottom = 0.662037
+margin_top = -16.0
+margin_right = 0.00012207
+margin_bottom = -15.9996
 
 [node name="QuitButton" parent="." instance=ExtResource( 4 )]
-anchor_left = 0.416667
 anchor_top = 0.683333
-anchor_right = 0.572917
 anchor_bottom = 0.752778
-margin_left = 0.0
 margin_top = 0.0
-margin_right = 0.0
-margin_bottom = 0.0
 
 [node name="buttonhoversound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+volume_db = -22.0
+
+[node name="alpha_warning" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -410.0
+margin_top = -55.0
+margin_right = 128.0
+margin_bottom = -36.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "This Game is in early alpha, please be aware of bugs and unfinished work. Thanks!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="version_info" type="Label" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 166.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Version: Alpha-03 [Test]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="TextureRect" parent="."]
+anchor_left = 0.369792
+anchor_top = 0.162963
+anchor_right = 0.630208
+anchor_bottom = 0.301852
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="alpha" type="TextureRect" parent="."]
+anchor_left = 0.539063
+anchor_top = 0.244444
+anchor_right = 0.669271
+anchor_bottom = 0.290741
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 [connection signal="mouse_entered" from="StartButton" to="." method="_on_StartButton_mouse_entered"]
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="mouse_entered" from="OptionsButton" to="." method="_on_OptionsButton_mouse_entered"]
 [connection signal="mouse_entered" from="QuitButton" to="." method="_on_QuitButton_mouse_entered"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]

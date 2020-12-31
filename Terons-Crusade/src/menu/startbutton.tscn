@@ -1,14 +1,17 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="startbutton" type="Button"]
+[ext_resource path="res://assets/menu/buttons/start_button_black.png" type="Texture" id=1]
+[ext_resource path="res://assets/menu/buttons/start_button_white.png" type="Texture" id=2]
+
+[node name="startbutton" type="TextureButton"]
 anchor_left = 0.416667
 anchor_top = 0.381481
 anchor_right = 0.566667
 anchor_bottom = 0.440741
 margin_right = 12.0
 margin_bottom = 11.0
-text = "START"
-clip_text = true
+texture_normal = ExtResource( 1 )
+texture_hover = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
