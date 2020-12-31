@@ -2,15 +2,18 @@ extends Node2D
 
 const Slot = preload("res://src/scripts/Slot.gd")
 const Item = preload("res://src/scripts/Item.gd")
-onready var player = find_parent("Player")
 var held_item = null
+
+onready var player = find_parent("Player")
+onready var main_inventory = $MainInventory
+onready var hotbar = $Hotbar
 
 
 func _ready():	
-	for slot in $MainInventory.get_children():
+	for slot in main_inventory.get_children():
 		slot.connect("gui_input", self, "slot_gui_input", [slot, false])
 		
-	for slot in $Hotbar.get_children():
+	for slot in hotbar.get_children():
 		slot.connect("gui_input", self, "slot_gui_input", [slot, true])
 
 func slot_gui_input(event: InputEvent, slot: Slot, in_hotbar):
@@ -69,7 +72,7 @@ func add_item(item: Item) -> bool:
 	var slot_found_in_hotbar = false
 	
 	# Find existing stack in hotbar
-	for slot in $Hotbar.get_children():
+	for slot in hotbar.get_children():
 		if slot.item:
 			if slot.item.item_name == item.item_name:
 				if slot.item.item_quantity + item.item_quantity <= item.stack_size:
@@ -81,7 +84,7 @@ func add_item(item: Item) -> bool:
 			
 #	# Find existing stack in inventory
 	if not slot_found:
-		for slot in $MainInventory.get_children():
+		for slot in main_inventory.get_children():
 			if slot.item:
 				if slot.item.item_name == item.item_name:
 					if slot.item.item_quantity + item.item_quantity <= item.stack_size:
@@ -92,7 +95,7 @@ func add_item(item: Item) -> bool:
 #
 #	# Find free slot in hotbar
 	if not slot_found:
-		for slot in $Hotbar.get_children():
+		for slot in hotbar.get_children():
 			if not slot.item:
 				slot.place_item(item)
 				free_slot = slot
@@ -102,7 +105,7 @@ func add_item(item: Item) -> bool:
 #
 #	# Find free slot in inventory
 	if not slot_found:
-		for slot in $MainInventory.get_children():
+		for slot in main_inventory.get_children():
 			if not slot.item:
 				slot.place_item(item)
 				free_slot = slot
