@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/running-11.png-948bc603c72a060036b1e505f77808d2.stex"
+path="res://.import/Skeleton Fall.png-1b6e6a565992fdf3263c712629fa28d4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/Skeleton/running/running-11.png"
-dest_files=[ "res://.import/running-11.png-948bc603c72a060036b1e505f77808d2.stex" ]
+source_file="res://assets/enemies/Skeleton/Skeleton Fall.png"
+dest_files=[ "res://.import/Skeleton Fall.png-1b6e6a565992fdf3263c712629fa28d4.stex" ]
 
 [params]
 

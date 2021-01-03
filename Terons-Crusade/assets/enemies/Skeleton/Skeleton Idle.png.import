@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/running-07.png-83c09a302bd74e9769355649873067e6.stex"
+path="res://.import/Skeleton Idle.png-dbc71e490206f9862001feea8d24ea6d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/Skeleton/running/running-07.png"
-dest_files=[ "res://.import/running-07.png-83c09a302bd74e9769355649873067e6.stex" ]
+source_file="res://assets/enemies/Skeleton/Skeleton Idle.png"
+dest_files=[ "res://.import/Skeleton Idle.png-dbc71e490206f9862001feea8d24ea6d.stex" ]
 
 [params]
 

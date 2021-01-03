@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/running-12.png-86ce040a57ea7001926bf42836ad5e1d.stex"
+path="res://.import/Skeleton Attack.png-c0a267f50a1f708a69502cbdfc13af41.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/Skeleton/running/running-12.png"
-dest_files=[ "res://.import/running-12.png-86ce040a57ea7001926bf42836ad5e1d.stex" ]
+source_file="res://assets/enemies/Skeleton/Skeleton Attack.png"
+dest_files=[ "res://.import/Skeleton Attack.png-c0a267f50a1f708a69502cbdfc13af41.stex" ]
 
 [params]
 
