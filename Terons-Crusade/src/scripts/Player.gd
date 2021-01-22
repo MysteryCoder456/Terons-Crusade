@@ -129,6 +129,28 @@ func _input(event):
 
 func _process(delta):
 	held_item.visible = (velocity == Vector2.ZERO)
+	var item_info = Globals.player_hotbar[current_hotbar_selection]
+	
+	if item_info:
+		var held_item_data = JsonData.item_data[item_info[0]]
+		
+		if held_item_data["category"] == "ranged_weapon":
+			var item_distance = 20
+			var angle_to_mouse = get_global_mouse_position().angle_to_point(global_position)
+			
+			var item_pos = Vector2(
+				cos(angle_to_mouse),
+				sin(angle_to_mouse)
+			) * item_distance
+			
+			held_item.position = item_pos
+			held_item.global_rotation = angle_to_mouse
+			held_item.visible = true
+			held_item.sprite.set_offset(Vector2.ZERO)
+		else:
+			held_item.global_rotation = 0
+			held_item.sprite.set_offset(Vector2(25, -25))
+			held_item.position.y = 6
 	
 	if is_dead and not death_animation_played:
 		animated_sprite.playing = false
@@ -203,15 +225,22 @@ func get_movement_velocity():
 	
 func flip_horizontal(flip_h: bool):
 	animated_sprite.flip_h = flip_h
-
-	if flip_h:
-		held_item.scale.x = -1
-		held_item.position.x = -7
-		attack_area_collision_shape.position.x = -22
-	else:
-		held_item.scale.x = 1
-		held_item.position.x = 7
-		attack_area_collision_shape.position.x = 22
+	var item_info = Globals.player_hotbar[current_hotbar_selection]
+	
+	if item_info:
+		var held_item_data = JsonData.item_data[item_info[0]]
+	
+		if held_item_data["category"] == "ranged_weapon":
+			held_item.scale.x = 1
+		else:
+			if flip_h:
+				held_item.scale.x = -1
+				held_item.position.x = -8
+				attack_area_collision_shape.position.x = -22
+			else:
+				held_item.scale.x = 1
+				held_item.position.x = 8
+				attack_area_collision_shape.position.x = 22
 
 
 func _on_ItemPickupDetector_body_entered(body):
