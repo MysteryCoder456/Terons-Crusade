@@ -4,6 +4,10 @@
         "stack_size": 1,
         "damage": 3
     },
+    "Bow": {
+        "category": "ranged_weapon",
+        "stack_size": 1
+    },
     "Pickaxe": {
         "category": "tool",
         "stack_size": 1,
