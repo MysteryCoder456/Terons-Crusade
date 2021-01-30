@@ -149,7 +149,7 @@ func _process(delta):
 			held_item.sprite.set_offset(Vector2.ZERO)
 		else:
 			held_item.global_rotation = 0
-			held_item.sprite.set_offset(Vector2(25, -25))
+			held_item.change_item(held_item.item_name)
 			held_item.position.y = 6
 	
 	if is_dead and not death_animation_played:
