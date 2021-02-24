@@ -26,7 +26,6 @@ script = ExtResource( 2 )
 speed = Vector2( 150, 325 )
 max_health = 10
 reach_distance = 96.0
-attack_knockback = 300.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )

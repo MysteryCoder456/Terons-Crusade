@@ -3,6 +3,7 @@ extends Entity
 export var attack_range: float  # in blocks
 export var attack_damage: float
 
+onready var world = find_parent("world")
 onready var move_timer = $MoveTimer
 onready var wait_timer = $WaitTimer
 onready var attack_timer = $AttackTimer
@@ -159,3 +160,20 @@ func _on_AnimatedSprite_animation_finished():
 			attack_timer.stop()
 			target = null
 			state = States.IDLE
+
+
+func _on_ProjectileDetector_body_entered(body):
+	if body.is_in_group("Projectile"):
+		world.remove_child(body)
+		body.queue_free()
+		
+		if body.is_in_group("Arrow"):
+			# TODO: add a function to apply kb to entities
+			var arrow_data = JsonData.item_data["Arrow"]
+			var damage = arrow_data["damage"]
+			var kb_dir = abs(body.velocity.x) / body.velocity.x
+			var kb = arrow_data["knockback"]
+			
+			stun()
+			health -= damage
+			velocity.x += kb_dir * kb

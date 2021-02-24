@@ -2,7 +2,6 @@ extends Entity
 
 export var reach_distance: float # in pixels
 export var hotbar_disappear_time = 2 # in seconds
-export var attack_knockback: float
 
 var inventory_open = false
 var itemdrops_in_reach = []
@@ -14,6 +13,7 @@ var death_animation_played = false  # Important to prevent death animation from 
 
 var attackables = []
 
+onready var world = find_parent("world")
 onready var camera = $Camera2D
 onready var health_bar_overlay = $HealthBarOverlay
 onready var inventory = $Inventory
@@ -100,7 +100,7 @@ func _input(event):
 				
 				item_drop.init(item_info[0], item_info[1])
 				item_drop.global_position = self.global_position
-				find_parent("world").add_child(item_drop)
+				world.add_child(item_drop)
 				
 				Globals.player_hotbar[current_hotbar_selection] = null
 				sync_hotbar_overlay()
@@ -117,14 +117,27 @@ func _input(event):
 				var held_item_data = JsonData.item_data[item_info[0]]
 				
 				if held_item_data["category"] == "weapon":
+					var attack_kb = held_item_data["knockback"]
+					
 					for attackable in attackables:
 						attackable.health -= held_item_data["damage"]
 						attackable.stun()
 						
 						if animated_sprite.flip_h:
-							attackable.velocity.x -= attack_knockback
+							attackable.velocity.x -= attack_kb
 						else:
-							attackable.velocity.x += attack_knockback
+							attackable.velocity.x += attack_kb
+		
+		# Interacting
+		elif Input.is_action_just_pressed("use"):
+			if item_info:
+				var held_item_data = JsonData.item_data[item_info[0]]
+				
+				if held_item_data["category"] == "ranged_weapon":
+					var new_arrow = Globals.Arrow.instance()
+					var angle_to_mouse = get_global_mouse_position().angle_to_point(global_position)
+					new_arrow.init(global_position, angle_to_mouse)
+					world.add_child(new_arrow)
 
 
 func _process(delta):
@@ -270,7 +283,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		# Create blood particles
 		var particles = Globals.BloodParticles.instance()
 		particles.global_position = particles_position.global_position
-		find_parent("world").add_child(particles)
+		world.add_child(particles)
 		particles.emitting = true
 		animated_sprite.visible = false
 		
