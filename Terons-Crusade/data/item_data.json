@@ -2,7 +2,18 @@
     "Sword": {
         "category": "weapon",
         "stack_size": 1,
-        "damage": 5
+        "damage": 3,
+        "knockback": 300
+    },
+    "Bow": {
+        "category": "ranged_weapon",
+        "stack_size": 1
+    },
+    "Arrow": {
+        "category": "ammo",
+        "stack_size": 64,
+        "damage": 2,
+        "knockback": 200
     },
     "Pickaxe": {
         "category": "tool",

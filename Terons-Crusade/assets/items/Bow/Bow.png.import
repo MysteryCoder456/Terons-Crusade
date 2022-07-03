@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/attack-14.png-b6ec1e88eadc69d7206ab1c39d8cbb73.stex"
+path="res://.import/Bow.png-da99a3c0c15561b2c547e9d8fcbb4ac2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/Skeleton/attack/attack-14.png"
-dest_files=[ "res://.import/attack-14.png-b6ec1e88eadc69d7206ab1c39d8cbb73.stex" ]
+source_file="res://assets/items/Bow/Bow.png"
+dest_files=[ "res://.import/Bow.png-da99a3c0c15561b2c547e9d8fcbb4ac2.stex" ]
 
 [params]
 

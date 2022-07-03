@@ -11,6 +11,9 @@ var hotbar_timer = hotbar_disappear_time
 
 var death_animation_played = false  # Important to prevent death animation from repeating
 
+var attackables = []
+
+onready var world = find_parent("world")
 onready var camera = $Camera2D
 onready var health_bar_overlay = $HealthBarOverlay
 onready var inventory = $Inventory
@@ -18,6 +21,7 @@ onready var held_item = $HeldItem
 onready var animation_player = $AnimationPlayer
 onready var hotbar_overlay = $HotbarOverlay
 onready var particles_position = $ParticlesPosition
+onready var attack_area_collision_shape = $AttackArea/CollisionShape2D
 
 
 func _ready():
@@ -37,6 +41,8 @@ func _ready():
 	
 func _input(event):
 	if not is_dead:
+		var item_info = Globals.player_hotbar[current_hotbar_selection]
+		
 		# Open Inventory
 		if Input.is_action_just_pressed("open_inventory"):
 			inventory.visible = !inventory_open
@@ -89,27 +95,75 @@ func _input(event):
 			
 		# Dropping items from hotbar
 		if Input.is_action_just_pressed("drop_item"):
-			var item_info = Globals.player_hotbar[current_hotbar_selection]
 			if item_info:
 				var item_drop = Globals.ItemDrop.instance()
 				
 				item_drop.init(item_info[0], item_info[1])
 				item_drop.global_position = self.global_position
-				find_parent("world").add_child(item_drop)
+				world.add_child(item_drop)
 				
 				Globals.player_hotbar[current_hotbar_selection] = null
 				sync_hotbar_overlay()
 				refresh_inventory(true)
 				
-		var item_info = Globals.player_hotbar[current_hotbar_selection]
 		if item_info:
 			held_item.change_item(item_info[0])
 		else:
 			held_item.change_item(null)
+			
+		# Attacking
+		if Input.is_action_just_pressed("break"):
+			if item_info:
+				var held_item_data = JsonData.item_data[item_info[0]]
+				
+				if held_item_data["category"] == "weapon":
+					var attack_kb = held_item_data["knockback"]
+					
+					for attackable in attackables:
+						attackable.health -= held_item_data["damage"]
+						attackable.stun()
+						
+						if animated_sprite.flip_h:
+							attackable.velocity.x -= attack_kb
+						else:
+							attackable.velocity.x += attack_kb
+		
+		# Interacting
+		elif Input.is_action_just_pressed("use"):
+			if item_info:
+				var held_item_data = JsonData.item_data[item_info[0]]
+				
+				if held_item_data["category"] == "ranged_weapon":
+					var new_arrow = Globals.Arrow.instance()
+					var angle_to_mouse = get_global_mouse_position().angle_to_point(global_position)
+					new_arrow.init(global_position, angle_to_mouse)
+					world.add_child(new_arrow)
 
 
 func _process(delta):
 	held_item.visible = (velocity == Vector2.ZERO)
+	var item_info = Globals.player_hotbar[current_hotbar_selection]
+	
+	if item_info:
+		var held_item_data = JsonData.item_data[item_info[0]]
+		
+		if held_item_data["category"] == "ranged_weapon":
+			var item_distance = 20
+			var angle_to_mouse = get_global_mouse_position().angle_to_point(global_position)
+			
+			var item_pos = Vector2(
+				cos(angle_to_mouse),
+				sin(angle_to_mouse)
+			) * item_distance
+			
+			held_item.position = item_pos
+			held_item.global_rotation = angle_to_mouse
+			held_item.visible = true
+			held_item.sprite.set_offset(Vector2.ZERO)
+		else:
+			held_item.global_rotation = 0
+			held_item.change_item(held_item.item_name)
+			held_item.position.y = 6
 	
 	if is_dead and not death_animation_played:
 		animated_sprite.playing = false
@@ -184,13 +238,22 @@ func get_movement_velocity():
 	
 func flip_horizontal(flip_h: bool):
 	animated_sprite.flip_h = flip_h
+	var item_info = Globals.player_hotbar[current_hotbar_selection]
 	
-	if flip_h:
-		held_item.scale.x = -1
-		held_item.position.x = -7
-	else:
-		held_item.scale.x = 1
-		held_item.position.x = 7
+	if item_info:
+		var held_item_data = JsonData.item_data[item_info[0]]
+	
+		if held_item_data["category"] == "ranged_weapon":
+			held_item.scale.x = 1
+		else:
+			if flip_h:
+				held_item.scale.x = -1
+				held_item.position.x = -8
+				attack_area_collision_shape.position.x = -22
+			else:
+				held_item.scale.x = 1
+				held_item.position.x = 8
+				attack_area_collision_shape.position.x = 22
 
 
 func _on_ItemPickupDetector_body_entered(body):
@@ -203,6 +266,16 @@ func _on_ItemPickupDetector_body_exited(body):
 		itemdrops_in_reach.erase(body)
 
 
+func _on_AttackArea_body_entered(body):
+	if body.is_in_group("Attackable"):
+		attackables.append(body)
+
+
+func _on_AttackArea_body_exited(body):
+	if body.is_in_group("Attackable"):
+		attackables.erase(body)
+
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "jitter" and is_dead:
 		death_animation_played = true
@@ -210,7 +283,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		# Create blood particles
 		var particles = Globals.BloodParticles.instance()
 		particles.global_position = particles_position.global_position
-		find_parent("world").add_child(particles)
+		world.add_child(particles)
 		particles.emitting = true
 		animated_sprite.visible = false
 		

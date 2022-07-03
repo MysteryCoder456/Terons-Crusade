@@ -2,6 +2,7 @@ extends Node
 
 var gravity = 1000
 var void_height = 2000
+var air_resistance = 0.998
 
 var minimum_fall_damage_blocks = 5  # 80 pixels
 var minimum_fall_damage_velocity = sqrt(2 * gravity * (minimum_fall_damage_blocks * 16))
@@ -10,6 +11,7 @@ var Player = load("res://src/scripts/Player.gd")
 const Item = preload("res://src/ui/Item.tscn")
 const ItemDrop = preload("res://src/actors/ItemDrop.tscn")
 const BloodParticles = preload("res://src/particles/BloodParticles.tscn")
+const Arrow = preload("res://src/actors/Arrow.tscn")
 
 var player_hotbar = {
 	0: null,

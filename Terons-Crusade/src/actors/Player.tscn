@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/spriteframes/player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/scripts/Player.gd" type="Script" id=2]
@@ -13,6 +13,9 @@ extents = Vector2( 7, 16 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 30, 30 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 14, 12 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
@@ -57,6 +60,13 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupDetector"]
 shape = SubResource( 2 )
 
+[node name="AttackArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2( 22, 0 )
+shape = SubResource( 3 )
+
 [node name="ParticlesPosition" type="Position2D" parent="."]
 position = Vector2( 0, 17 )
 
@@ -64,4 +74,6 @@ position = Vector2( 0, 17 )
 anims/jitter = ExtResource( 6 )
 [connection signal="body_entered" from="ItemPickupDetector" to="." method="_on_ItemPickupDetector_body_entered"]
 [connection signal="body_exited" from="ItemPickupDetector" to="." method="_on_ItemPickupDetector_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

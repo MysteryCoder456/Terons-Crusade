@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/attack-17.png-640cee615eee9feb44c1f0245235ba06.stex"
+path="res://.import/Skeleton Fall.png-1b6e6a565992fdf3263c712629fa28d4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/Skeleton/attack/attack-17.png"
-dest_files=[ "res://.import/attack-17.png-640cee615eee9feb44c1f0245235ba06.stex" ]
+source_file="res://assets/enemies/Skeleton/Skeleton Fall.png"
+dest_files=[ "res://.import/Skeleton Fall.png-1b6e6a565992fdf3263c712629fa28d4.stex" ]
 
 [params]
 

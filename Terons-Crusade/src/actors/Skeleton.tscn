@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/spriteframes/skeleton.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/scripts/Skeleton.gd" type="Script" id=2]
@@ -9,13 +9,17 @@ extents = Vector2( 9, 12 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 300.0
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 9, 12 )
+
 [node name="Skeleton" type="KinematicBody2D" groups=[
+"Attackable",
 "Enemy",
 ]]
 z_index = 1
 collision_layer = 2
 script = ExtResource( 2 )
-speed = Vector2( 90, 0 )
+speed = Vector2( 50, 0 )
 max_health = 5
 attack_range = 2.0
 attack_damage = 2.0
@@ -23,10 +27,9 @@ attack_damage = 2.0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
-offset = Vector2( 9, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5 )
+position = Vector2( 0, 4 )
 shape = SubResource( 1 )
 
 [node name="MoveTimer" type="Timer" parent="."]
@@ -48,15 +51,28 @@ one_shot = true
 process_mode = 0
 one_shot = true
 
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 0.55
+one_shot = true
+
 [node name="PlayerDetector" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource( 2 )
+
+[node name="ProjectileDetector" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 3 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_WaitTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="AttackReturnTimer" to="." method="_on_AttackReturnTimer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_PlayerDetector_body_exited"]
+[connection signal="body_entered" from="ProjectileDetector" to="." method="_on_ProjectileDetector_body_entered"]
